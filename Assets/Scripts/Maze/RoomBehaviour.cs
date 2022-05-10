@@ -7,6 +7,7 @@ namespace Maze
     {
         /*0 - up, 1 - down, 2 - right, 3 - left*/
         [SerializeField]private GameObject[] walls,doors;
+        [SerializeField]private List<bool> testStatuses;
 
         public void UpdateRoom(IReadOnlyList<bool> doorOpenStatuses)
         {
@@ -21,6 +22,11 @@ namespace Maze
                 doors[i].SetActive(doorOpenStatuses[i]);
                 walls[i].SetActive(!doorOpenStatuses[i]);
             }
+        }
+        
+        public void UpdateRoomTest()
+        {
+            UpdateRoom(testStatuses);
         }
     }
 }

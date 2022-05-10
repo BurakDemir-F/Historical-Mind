@@ -11,7 +11,7 @@ namespace Maze
     {
         [SerializeField] private Vector2Int size;
         [SerializeField] private RoomBehaviour mazeRoom;
-        [SerializeField] private float roomOffset = 6f;
+        [SerializeField] private float roomOffset = 7f;
         
         private List<Cell> _cells;
 
@@ -25,9 +25,6 @@ namespace Maze
 
         private void GenerateMaze(List<Cell> cells)
         {
-            var test = gameObject.AddComponent<BackTracingTest>();
-            test.CreateTestVisuals(cells,size,roomOffset);
-            
             foreach (var cell in cells)
             {
                 if (!cell.IsVisited) continue;
@@ -35,16 +32,9 @@ namespace Maze
                 var newRoom = Instantiate(mazeRoom, 
                     new Vector3(cell.Position.x * roomOffset, 0f, -cell.Position.y * roomOffset),
                     Quaternion.identity);
-                
+                newRoom.name = $"Room: {cell.Position.x} : {cell.Position.y}";
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
             }
-        }
-
-
-        public class MazeCell : IBackTrace
-        { 
-            public Vector2Int Position { get; private set; }
-            public bool IsVisited { get; private set; }
         }
     }
 }

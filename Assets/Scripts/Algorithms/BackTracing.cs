@@ -57,6 +57,12 @@ namespace Algorithms
                 }
             }
 
+            PerformBackTracing();
+            SetNeighborCells();
+        }
+
+        private void PerformBackTracing()
+        {
             var size = _size.x * _size.y;
             var pathStack = new Stack<Cell>();
             var currentCell = _cells[0];
@@ -92,7 +98,7 @@ namespace Algorithms
 
             var currentPosX = currentCell.Position.x; // 0
             var currentPosY = currentCell.Position.y; // 1
-            var lastCell = cells[cells.Count - 1];
+            var lastCell = cells[^1];
             var firstCell = cells[0];
             var cellPosition = GetCellPosition(currentCell);
 
@@ -100,31 +106,70 @@ namespace Algorithms
             if (firstCell.Position.y < currentPosY && !cells[cellPosition - _size.x].IsVisited)
             {
                 neighborCells.Add(cells[cellPosition - _size.x]);
-                currentCell.SetSideNeighbor(0);
             }
 
             //check down neighbor
             if (lastCell.Position.y > currentPosY && !cells[cellPosition + _size.x].IsVisited)
             {
                 neighborCells.Add(cells[cellPosition + _size.x]);
-                currentCell.SetSideNeighbor(1);
             }
 
             //check left neighbor
             if(firstCell.Position.x < currentPosX && !cells[cellPosition - 1].IsVisited)
             {
                 neighborCells.Add(cells[cellPosition - 1]);
-                currentCell.SetSideNeighbor(3);
             }
 
             //check right neighbor
             if(lastCell.Position.x > currentPosX && !cells[cellPosition + 1].IsVisited)
             {
                 neighborCells.Add(cells[cellPosition + 1]);
-                currentCell.SetSideNeighbor(2);
             }
 
             return neighborCells;
+        }
+
+        private void SetNeighborCells()
+        {
+            foreach (var cell in _cells)
+            {
+                SetNeighbors(_cells,cell);
+            }
+        }
+
+        private void SetNeighbors(IReadOnlyList<Cell> cells, Cell currentCell)
+        {
+
+            var currentPosX = currentCell.Position.x; 
+            var currentPosY = currentCell.Position.y; 
+            var lastCell = cells[^1];
+            var firstCell = cells[0];
+            var cellPosition = GetCellPosition(currentCell);
+
+            //check up neighbor
+            if (firstCell.Position.y < currentPosY && cells[cellPosition - _size.x].IsVisited)
+            {
+                currentCell.SetSideNeighbor(0);
+            }
+
+            //check down neighbor
+            if (lastCell.Position.y > currentPosY && cells[cellPosition + _size.x].IsVisited)
+            {
+                currentCell.SetSideNeighbor(1);
+            }
+
+            //check left neighbor
+            if(firstCell.Position.x < currentPosX && cells[cellPosition - 1].IsVisited)
+            {
+                currentCell.SetSideNeighbor(3);
+            }
+
+            //check right neighbor
+            if(lastCell.Position.x > currentPosX && cells[cellPosition + 1].IsVisited)
+            {
+                currentCell.SetSideNeighbor(2);
+            }
+
         }
 
         private int GetCellPosition(Cell cell)

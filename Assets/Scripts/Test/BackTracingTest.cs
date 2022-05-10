@@ -43,7 +43,7 @@ namespace Test
                         }
                         case 1:
                         {
-                            var neighborCube = CreateCube(new Vector3(cubePosX, cubePosY, cubePosZ -1), Vector3.one * 0.5f,
+                            var neighborCube = CreateCube(new Vector3(cubePosX, cubePosY, cubePosZ - 1), Vector3.one * 0.5f,
                                 isNeighbor, newCube.transform, newCube.name + "Down");
                             break;
                         }
