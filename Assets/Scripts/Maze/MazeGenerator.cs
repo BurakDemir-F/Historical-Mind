@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Algorithms;
+using ScriptableObjects;
 using Test;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Maze
 {
@@ -11,12 +13,16 @@ namespace Maze
     {
         [SerializeField] private RoomBehaviour mazeRoom;
         [SerializeField] private float roomOffset = 7f;
-        
-        private Vector2Int _size = MazeInfo.size;
+        [SerializeField] private MazeData mazeData;
+
+        private Vector2Int _size;
         private List<Cell> _cells;
 
         private void Start()
         {
+            _size = mazeData.size;
+            MazeInfo.size = mazeData.size;
+            
             var backTracing = new BackTracing(_size.x, _size.y);
             _cells = backTracing.GetCells();
 

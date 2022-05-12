@@ -11,6 +11,8 @@ namespace Maze
         [SerializeField]private List<bool> testStatuses;
 
         private Vector2Int _position;
+
+        public static Action<RoomBehaviour, Collider> onRoomEntered;
         private void OnDestroy()
         {
             MazeInfo.RemoveRoom(_position);
@@ -35,6 +37,11 @@ namespace Maze
         {
             _position = position;
         }
+
+        public Vector2Int GetRoomPosition()
+        {
+            return _position;
+        }
         
         public void UpdateRoomTest()
         {
@@ -43,26 +50,7 @@ namespace Maze
 
         public void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
-            if(_position == MazeInfo.currentRoomPosition) return;
-            //if(MazeInfo.GetActiveRooms().Contains(this)) return;
-
-            foreach (var room in MazeInfo.GetActiveRooms())
-            {
-                room.gameObject.SetActive(false);
-            }
-            MazeInfo.RemoveAllActiveRooms();
-
-            gameObject.SetActive(true);
-            MazeInfo.currentRoomPosition = _position;
-            MazeInfo.AddActiveRoom(this);
-            
-            var rooms = MazeInfo.GetNeighborRooms(_position);
-            foreach (var room in rooms)
-            {
-                room.gameObject.SetActive(true);
-                MazeInfo.AddActiveRoom(room);
-            }
+            onRoomEntered?.Invoke(this,other);
         }
     }
 }
