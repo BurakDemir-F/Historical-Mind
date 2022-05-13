@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e8649e67c929347b8cc44b7d000ed4, type: 3}
   m_Name: MazeData
   m_EditorClassIdentifier: 
-  size: {x: 5, y: 5}
+  size: {x: 10, y: 10}

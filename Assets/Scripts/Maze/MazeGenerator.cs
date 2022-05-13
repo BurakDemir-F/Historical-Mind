@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Algorithms;
+using Patterns;
 using ScriptableObjects;
 using Test;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.Serialization;
 
 namespace Maze
 {
-    public class MazeGenerator : MonoBehaviour
+    public class MazeGenerator : Singleton<MazeGenerator>
     {
         [SerializeField] private RoomBehaviour mazeRoom;
         [SerializeField] private float roomOffset = 7f;
@@ -17,22 +18,26 @@ namespace Maze
 
         private Vector2Int _size;
         private List<Cell> _cells;
-
-        private void Start()
+        
+        public void InitializeData()
         {
             _size = mazeData.size;
             MazeInfo.size = mazeData.size;
             
+            GenerateBackTracking();
+        }
+        
+        private void GenerateBackTracking()
+        {
             var backTracing = new BackTracing(_size.x, _size.y);
             _cells = backTracing.GetCells();
-
-            StartCoroutine(GenerateMaze(_cells));
         }
 
-        private IEnumerator GenerateMaze(List<Cell> cells)
+        public IEnumerator GenerateMaze()
         {
+            
             var waitForSeconds = new WaitForSeconds(0.01f);
-            foreach (var cell in cells)
+            foreach (var cell in _cells)
             {
                 if (!cell.IsVisited) continue;
 
@@ -46,8 +51,7 @@ namespace Maze
                 yield return waitForSeconds;
             }
 
-            yield return new WaitForSeconds(3f);
-
+            yield return waitForSeconds;
             #region test
 
             var player = new GameObject("Player");
