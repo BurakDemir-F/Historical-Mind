@@ -1,9 +1,12 @@
+using MiniMapScripts;
 using UnityEngine;
 
 namespace ScriptableObjects
 {
+    [CreateAssetMenu(fileName = "MiniMapCellData", menuName = "ScriptableObjects/MiniMapCellData")]
     public class MiniMapCellData : ScriptableObject
     {
-        public GameObject prefab;
+        public MiniMapCell prefab;
+        public float rememberingTime;
     }
 }

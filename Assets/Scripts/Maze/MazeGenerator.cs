@@ -15,6 +15,7 @@ namespace Maze
         [SerializeField] private RoomBehaviour mazeRoom;
         [SerializeField] private float roomOffset = 7f;
         [SerializeField] private MazeData mazeData;
+        [SerializeField] private Transform mazeRoot;
 
         private Vector2Int _size;
         private List<Cell> _cells;
@@ -44,6 +45,7 @@ namespace Maze
                 var newRoom = Instantiate(mazeRoom, 
                     new Vector3(cell.Position.x * roomOffset, 0f, -cell.Position.y * roomOffset),
                     Quaternion.identity);
+                newRoom.transform.SetParent(mazeRoot);
                 newRoom.name = $"Room: {cell.Position.x} : {cell.Position.y}";
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
                 newRoom.SetRoomPosition(cell.Position);
