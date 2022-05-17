@@ -8,23 +8,29 @@ namespace Maze
         public static Vector2Int size = new(10,10);
         public static Vector2Int currentRoomPosition = new (1000,1000);
 
-        private static readonly Dictionary<Vector2Int, RoomBehaviour> Rooms = new();
+        private static Dictionary<Vector2Int, RoomBehaviour> _rooms;
         private static readonly List<RoomBehaviour> ActiveRooms = new ();
+
+        public static void InitMazeInfo(Vector2Int mazeSize)
+        {
+            size = mazeSize;
+            _rooms = new Dictionary<Vector2Int, RoomBehaviour>(size.x * size.y);
+        }
         
         public static void AddRoom(Vector2Int position, RoomBehaviour room)
         {
-            if(!Rooms.ContainsKey(position))
-                Rooms.Add(position,room);
+            if(!_rooms.ContainsKey(position))
+                _rooms.Add(position,room);
         }
 
         public static void RemoveRoom(Vector2Int position)
         {
-            if (!Rooms.ContainsKey(position)) Rooms.Remove(position);
+            if (!_rooms.ContainsKey(position)) _rooms.Remove(position);
         }
 
         public static Dictionary<Vector2Int,RoomBehaviour> GetRooms()
         {
-            return Rooms;
+            return _rooms;
         }
 
         public static List<RoomBehaviour> GetActiveRooms()
@@ -54,9 +60,9 @@ namespace Maze
 
         public static bool TryGetRoom(Vector2Int position, out RoomBehaviour room)
         {
-            if (Rooms.ContainsKey(position))
+            if (_rooms.ContainsKey(position))
             {
-                room = Rooms[position];
+                room = _rooms[position];
                 return true;
             }
 
@@ -85,7 +91,7 @@ namespace Maze
         {
             if (position.y <= 0) return null;
             var pos = new Vector2Int(position.x, position.y - 1);
-            return Rooms.ContainsKey(pos) ? Rooms[pos] : null;
+            return _rooms.ContainsKey(pos) ? _rooms[pos] : null;
 
         }
         
@@ -93,7 +99,7 @@ namespace Maze
         {
             if (position.y >= size.y - 1) return null;
             var pos = new Vector2Int(position.x, position.y + 1);
-            return Rooms.ContainsKey(pos) ? Rooms[pos] : null;
+            return _rooms.ContainsKey(pos) ? _rooms[pos] : null;
 
         }
 
@@ -101,7 +107,7 @@ namespace Maze
         {
             if (position.x >= size.x - 1) return null;
             var pos = new Vector2Int(position.x + 1, position.y);
-            return Rooms.ContainsKey(pos) ? Rooms[pos] : null;
+            return _rooms.ContainsKey(pos) ? _rooms[pos] : null;
 
         }
 
@@ -109,7 +115,7 @@ namespace Maze
         {
             if (position.x <= 0) return null;
             var pos = new Vector2Int(position.x - 1, position.y);
-            return Rooms.ContainsKey(pos) ? Rooms[pos] : null;
+            return _rooms.ContainsKey(pos) ? _rooms[pos] : null;
 
         }
     }

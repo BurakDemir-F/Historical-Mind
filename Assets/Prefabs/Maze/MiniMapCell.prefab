@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2844727932944553965}
   - component: {fileID: 5863158285630691276}
   - component: {fileID: 1110698005371905548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MiniMapCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

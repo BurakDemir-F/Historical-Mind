@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MiniMapScripts
 {
-    public class MiniMapCell : MonoBehaviour
+    public class MiniMapCell : MonoBehaviour, IMiniMapObject
     {
         public Vector2Int Position { get; private set; }
         public float RememberingTime { get; private set; }

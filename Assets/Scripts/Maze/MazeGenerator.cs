@@ -23,21 +23,24 @@ namespace Maze
         public void InitializeData()
         {
             _size = mazeData.size;
-            MazeInfo.size = mazeData.size;
+            MazeInfo.InitMazeInfo(_size);
             
             GenerateBackTracking();
         }
         
         private void GenerateBackTracking()
         {
+            var startTime = Time.realtimeSinceStartup;
             var backTracing = new BackTracing(_size.x, _size.y);
             _cells = backTracing.GetCells();
+            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
+            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
-        public IEnumerator GenerateMaze()
+        public void GenerateMaze()
         {
-            
-            var waitForSeconds = new WaitForSeconds(0.01f);
+            var startTime = Time.realtimeSinceStartup;
+
             foreach (var cell in _cells)
             {
                 if (!cell.IsVisited) continue;
@@ -50,10 +53,11 @@ namespace Maze
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
                 newRoom.SetRoomPosition(cell.Position);
                 MazeInfo.AddRoom(cell.Position,newRoom);
-                yield return waitForSeconds;
             }
 
-            yield return waitForSeconds;
+            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate maze");
+            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
+
             #region test
 
             var player = new GameObject("Player");
