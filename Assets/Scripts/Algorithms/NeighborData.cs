@@ -6,10 +6,12 @@ namespace Algorithms
     public class NeighborData
     {
         private readonly List<bool> _neighborStatuses;
+        private List<Cell> _neighborCells;
 
         public NeighborData(List<bool> neighborStatuses)
         {
             _neighborStatuses = neighborStatuses;
+            _neighborCells = new List<Cell>(4);
         }
 
         public void SetNeighborStatus(int side)
@@ -21,6 +23,16 @@ namespace Algorithms
             }
 
             _neighborStatuses[side] = true;
+        }
+
+        public List<Cell> GetNeighborCells()
+        {
+            return _neighborCells;
+        }
+
+        public void AddNeighborCell(Cell neighbor)
+        {
+            _neighborCells.Add(neighbor);
         }
 
         public List<bool> GetNeighborStatuses()

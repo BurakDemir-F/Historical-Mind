@@ -150,24 +150,28 @@ namespace Algorithms
             if (firstCell.Position.y < currentPosY && cells[cellPosition - _size.x].IsVisited)
             {
                 currentCell.SetSideNeighbor(0);
+                currentCell.AddNeighborCell(cells[cellPosition - _size.x]);
             }
 
             //check down neighbor
             if (lastCell.Position.y > currentPosY && cells[cellPosition + _size.x].IsVisited)
             {
                 currentCell.SetSideNeighbor(1);
+                currentCell.AddNeighborCell(cells[cellPosition + _size.x]);
             }
 
             //check left neighbor
             if(firstCell.Position.x < currentPosX && cells[cellPosition - 1].IsVisited)
             {
                 currentCell.SetSideNeighbor(3);
+                currentCell.AddNeighborCell(cells[cellPosition - 1]);
             }
 
             //check right neighbor
             if(lastCell.Position.x > currentPosX && cells[cellPosition + 1].IsVisited)
             {
                 currentCell.SetSideNeighbor(2);
+                currentCell.AddNeighborCell(cells[cellPosition + 1]);
             }
 
         }

@@ -18,7 +18,7 @@ namespace EditorSpecific
                 if (_current != null)
                 {
                     Debug.Log("it is working i think");
-                    _current.StartGame();
+                    //_current.StartGame();
                 }
             }
         }

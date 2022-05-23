@@ -11,6 +11,7 @@ namespace Maze
         [SerializeField]private List<bool> testStatuses;
 
         private Vector2Int _position;
+        [field:SerializeField]public bool IsBombRoom { get; private set; }
 
         public static Action<RoomBehaviour, Collider> onRoomEntered;
         private void OnDestroy()
@@ -51,6 +52,11 @@ namespace Maze
         public void OnTriggerEnter(Collider other)
         {
             onRoomEntered?.Invoke(this,other);
+        }
+
+        public void SetBombRoom(bool status)
+        {
+            IsBombRoom = status;
         }
     }
 }

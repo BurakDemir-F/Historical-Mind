@@ -20,9 +20,25 @@ namespace Algorithms
             IsVisited = isVisited;
             _neighborData = neighborData;
         }
+
+        public void AddNeighborCell(Cell neighbor)
+        {
+            _neighborData.AddNeighborCell(neighbor);
+        }
+
+        public List<Cell> GetNeighborCells()
+        {
+            return _neighborData.GetNeighborCells();
+        }
+        
         public void SetSideNeighbor(int side) => _neighborData.SetNeighborStatus(side);
         public void SetVisited() => IsVisited = true;
 
         public List<bool> GetNeighborStatuses() => _neighborData.GetNeighborStatuses();
+
+        public bool HasUpNeighbor() => GetNeighborStatuses()[0];
+        public bool HasDownNeighbor() => GetNeighborStatuses()[1];
+        public bool HasRightNeighbor() => GetNeighborStatuses()[2];
+        public bool HasLeftNeighbor() => GetNeighborStatuses()[3];
     }
 }

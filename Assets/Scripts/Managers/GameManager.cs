@@ -10,18 +10,8 @@ namespace Managers
         private void Start()
         {
             MazeGenerator.Instance.InitializeData();
-            // var generationCor = MazeGenerator.Instance.GenerateMaze();
-            // StartCoroutine(generationCor);
-            
-            MazeGenerator.Instance.GenerateMaze();
-        }
-
-        public void StartGame()
-        {
-            MazeGenerator.Instance.InitializeData();
-            // var generationCor = MazeGenerator.Instance.GenerateMaze();
-            // StartCoroutine(generationCor);
-            
+            MazeGenerator.Instance.GenerateBackTracking();
+            MazeGenerator.Instance.SetBombs();
             MazeGenerator.Instance.GenerateMaze();
         }
     }
