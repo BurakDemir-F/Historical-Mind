@@ -19,22 +19,39 @@ namespace Algorithms
             _height = height;
 
             CreateRoomData();
-            PlaceBombs();
+            PlaceBombsAndGoalPath();
         }
 
         private void PlaceBombs()
         {
-            var goalFinder = new GoalFinder(_cells, _cells[0], _width, _height);
-            GoalCellPath = goalFinder.FindGoalPath(_cells[0]);
-
-            for (int counter = 0; counter < _width; counter++)
+            for (int i = 0; i < _width * _height / 3; i++)
             {
-                var randomIndex = Random.Range(0, _cells.Count);
-                if (!_cells[randomIndex].IsVisited) continue;
-                if(GoalCellPath.Contains(_cells[randomIndex])) continue;
-
+                var randomIndex = Random.Range(1, _roomDataList.Count);
+                if(!_cells[randomIndex].IsVisited) continue;
                 _roomDataList[randomIndex].SetBomb();
             }
+        }
+
+        private bool IsSafeToPlace()
+        {
+            return false;
+        }
+        
+        private void PlaceBombsAndGoalPath()
+        {
+            PlaceBombs();
+            
+            var goalFinder = new GoalFinder(_roomDataList, _cells, _cells[0], _width, _height);
+            GoalCellPath = goalFinder.FindGoalPath(_roomDataList[0]);
+
+            // for (int counter = 0; counter < _width; counter++)
+            // {
+            //     var randomIndex = Random.Range(0, _cells.Count);
+            //     if (!_cells[randomIndex].IsVisited) continue;
+            //     if(GoalCellPath.Contains(_cells[randomIndex])) continue;
+            //
+            //     _roomDataList[randomIndex].SetBomb();
+            // }
         }
 
         private void CreateRoomData()

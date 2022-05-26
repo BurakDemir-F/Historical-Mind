@@ -77,14 +77,14 @@ namespace Maze
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
 
             #region test
-            //
-            // var player = Instantiate(testPlayer);
-            // player.transform.position = new Vector3(0, 1f, 0);
-            //
-            // if (MazeInfo.TryGetRoom(new Vector2Int(0,0), out mazeRoom))
-            // {
-            //     mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
-            // }
+            
+            var player = Instantiate(testPlayer);
+            player.transform.position = new Vector3(0, 1f, 0);
+            
+            if (MazeInfo.TryGetRoom(new Vector2Int(0,0), out mazeRoom))
+            {
+                mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
+            }
             #endregion
 
         }

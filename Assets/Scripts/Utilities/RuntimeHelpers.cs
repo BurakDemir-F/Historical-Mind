@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Algorithms;
 using Maze;
-using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
 namespace Utilities
@@ -43,6 +39,7 @@ namespace Utilities
             var rooms = MazeInfo.GetRooms();
             var goalRoom = rooms[MazeGenerator.Instance.GoalCell.Position].gameObject;
             goalRoom.SetActive(true);
+            Debug.Log("",goalRoom);
 
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.position = goalRoom.transform.position;
@@ -64,45 +61,15 @@ namespace Utilities
         public void ActivateBasedOnCell(Cell cell)
         {
             var rooms = MazeInfo.GetRooms();
-            rooms[cell.Position].gameObject.SetActive(true);
-        }
-    }
-
-    [CustomEditor(typeof(RuntimeHelpers))]
-    public class RuntimeHelpersInspector : Editor
-    {
-        private RuntimeHelpers _helpers;
-
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-            _helpers = target as RuntimeHelpers;
-            if(_helpers == null) return;
-        
-            if (GUILayout.Button("Activate All"))
-            {
-                _helpers.ActivateAll();
-            }
-
-            if (GUILayout.Button("DeActive All"))
-            {
-                _helpers.DeactivateAll();
-            }
-        
-            if (GUILayout.Button("Activate Bomb Rooms"))
-            {
-                _helpers.ActivateBombCells();
-            }
+            var room = rooms[cell.Position].gameObject;
+            room.SetActive(true);
             
-            if (GUILayout.Button("Show Goal Path"))
-            {
-                _helpers.ShowGoalPath();
-            }
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = room.transform.position;
+            cube.transform.localScale = Vector3.one * 2;
+            var _renderer = cube.GetComponent<Renderer>();
+            _renderer.material.color = Color.red;
             
-            if (GUILayout.Button("Show Goal Room"))
-            {
-                _helpers.ShowGoalCell();
-            }
         }
     }
 }

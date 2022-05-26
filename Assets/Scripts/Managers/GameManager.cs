@@ -1,7 +1,4 @@
-using System;
 using Maze;
-using Unity.VisualScripting;
-using UnityEditor.TerrainTools;
 
 namespace Managers
 {
