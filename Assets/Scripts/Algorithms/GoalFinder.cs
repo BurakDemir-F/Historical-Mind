@@ -30,11 +30,11 @@ namespace Algorithms
             var previousCell = _startCell;
 
             var counter = 0;
-            while (randomNeighbor != null && CalculateDistance( startRoom.Cell,randomNeighbor) < _width * 0.9f)
+            while (randomNeighbor != null && CalculateDistance( startRoom.Cell,randomNeighbor) < _width * _height * 0.6f)
             {
-                if (++counter >= 1000)
+                if (++counter >= 3000)
                 {
-                    Debug.Log("i tried 1000 times");
+                    Debug.Log("i tried 3000 times");
                     break;
                 }
                 

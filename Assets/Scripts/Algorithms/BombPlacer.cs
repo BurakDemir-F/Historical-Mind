@@ -9,14 +9,16 @@ namespace Algorithms
         private readonly int _width;
         private readonly int _height;
         private List<RoomData> _roomDataList;
-        
+        private List<Cell> _restrictedCells;
+
         public List<Cell> GoalCellPath { get; private set; }
 
-        public BombPlacer(List<Cell> cells, int width, int height)
+        public BombPlacer(List<Cell> cells, int width, int height, List<Cell> restrictedCells)
         {
             _cells = cells;
             _width = width;
             _height = height;
+            _restrictedCells = restrictedCells;
 
             CreateRoomData();
             PlaceBombsAndGoalPath();
@@ -27,7 +29,24 @@ namespace Algorithms
             for (int i = 0; i < _width * _height / 3; i++)
             {
                 var randomIndex = Random.Range(1, _roomDataList.Count);
-                if(!_cells[randomIndex].IsVisited) continue;
+                var currentCell = _cells[randomIndex];
+                if(!currentCell.IsVisited) continue;
+                if (_restrictedCells.Contains(currentCell)) continue;
+
+                var neighborCells = currentCell.GetNeighborCells();
+                var hasNeighborBomb = false;
+                
+                foreach (var neighborCell in neighborCells)
+                {
+                    var index = neighborCell.PositionToIndex(_width);
+                    if (_roomDataList[index].IsBomb)
+                    {
+                        hasNeighborBomb = true;
+                        break;
+                    }
+                }
+                if(hasNeighborBomb) continue;
+                
                 _roomDataList[randomIndex].SetBomb();
             }
         }

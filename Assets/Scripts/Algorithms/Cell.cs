@@ -36,9 +36,94 @@ namespace Algorithms
 
         public List<bool> GetNeighborStatuses() => _neighborData.GetNeighborStatuses();
 
+        public int PositionToIndex(int width)
+        {
+            return GetIndex(Position.x, Position.y, width);
+        }
+        
+        public static int GetIndex(int x, int y, int width)
+        {
+            return y * width + x;
+        }
+        
         public bool HasUpNeighbor() => GetNeighborStatuses()[0];
         public bool HasDownNeighbor() => GetNeighborStatuses()[1];
         public bool HasRightNeighbor() => GetNeighborStatuses()[2];
         public bool HasLeftNeighbor() => GetNeighborStatuses()[3];
+    }
+
+    public static class CellExtensions
+    {
+        public static bool HasUpCornerNeighbor(this Cell cell)
+        {
+            var hasUpNeighbor = cell.HasUpNeighbor();
+            var hasLeftNeighbor = cell.HasLeftNeighbor();
+            var hasRightNeighbor = cell.HasRightNeighbor();
+
+            if (!hasUpNeighbor && !hasLeftNeighbor && !hasRightNeighbor) return false;
+
+            var neighbors = cell.GetNeighborCells();
+
+            if (hasUpNeighbor && neighbors[0].HasLeftNeighbor() || neighbors[0].HasRightNeighbor()) return true;
+            if (hasLeftNeighbor && neighbors[3].HasUpNeighbor()) return true;
+            if (hasRightNeighbor && neighbors[2].HasUpNeighbor()) return true;
+            
+            return false;
+        }
+        
+        public static bool HasDownCornerNeighbor(this Cell cell)
+        {
+            var hasDownNeighbor = cell.HasDownNeighbor();
+            var hasLeftNeighbor = cell.HasLeftNeighbor();
+            var hasRightNeighbor = cell.HasRightNeighbor();
+
+            if (!hasDownNeighbor && !hasLeftNeighbor && !hasRightNeighbor) return false;
+
+            var neighbors = cell.GetNeighborCells();
+
+            if (hasDownNeighbor && neighbors[1].HasLeftNeighbor() || neighbors[1].HasRightNeighbor()) return true;
+            if (hasLeftNeighbor && neighbors[3].HasDownNeighbor()) return true;
+            if (hasRightNeighbor && neighbors[2].HasDownNeighbor()) return true;
+            
+            return false;
+        }
+
+        
+        // bu fonksiyon olmadı...
+        public static bool TryGetCornerNeighbors(this Cell cell, out List<Cell> outputCells)
+        {
+            var hasUpNeighbor = cell.HasUpNeighbor();
+            var hasLeftNeighbor = cell.HasLeftNeighbor();
+            var hasRightNeighbor = cell.HasRightNeighbor();
+            var hasDownNeighbor = cell.HasDownNeighbor();
+
+            if (!hasUpNeighbor && !hasLeftNeighbor && !hasRightNeighbor && !hasDownNeighbor)
+            {
+                outputCells = null;
+                return false;
+            }
+
+            var squareNeighbors = cell.GetNeighborCells();
+            outputCells = new List<Cell>();
+            
+            if(hasUpNeighbor && squareNeighbors[0].HasLeftNeighbor()) 
+                outputCells.Add(squareNeighbors[0].GetNeighborCells()[3]);
+            
+            if(hasUpNeighbor && squareNeighbors[0].HasRightNeighbor()) 
+                outputCells.Add(squareNeighbors[0].GetNeighborCells()[2]);
+            
+            if(hasDownNeighbor && squareNeighbors[1].HasLeftNeighbor()) 
+                outputCells.Add(squareNeighbors[1].GetNeighborCells()[3]);
+            
+            if(hasDownNeighbor && squareNeighbors[1].HasRightNeighbor()) 
+                outputCells.Add(squareNeighbors[1].GetNeighborCells()[2]);
+
+            if (outputCells.Count > 0) return true;
+            else
+            {
+                outputCells = null;
+                return false;
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Maze;
 using UnityEngine;
 
 namespace Algorithms
@@ -10,18 +11,18 @@ namespace Algorithms
         private Vector2Int _size;
 
         private List<Cell> _neighborCellsTemp;
+        private MazeBase _maze;
         public BackTracing(Vector2Int size)
         {
             _cells = new List<Cell>();
             _size = size;
-            GenerateCells(size);
+            GenerateCells();
         }
 
         public BackTracing(int sizeX, int sizeY)
         {
             _cells = new List<Cell>();
             _size = new Vector2Int(sizeX, sizeY);
-            GenerateCells(sizeX,sizeY);
         }
         
         public BackTracing(Vector2Int size, int backTraceCount)
@@ -41,12 +42,30 @@ namespace Algorithms
             return _cells;
         }
 
-        private void GenerateCells(Vector2Int size)
+        public void GenerateCells()
         {
-            GenerateCells(size.x,size.y);
+            GenerateCellsInternal(_size.x,_size.y);
+            PerformBackTracing();
+            SetNeighborCells();
         }
-        
-        private void GenerateCells(int sizeX, int sizeY)
+
+        public List<Cell> GetFullTracedCells()
+        {
+            GenerateCellsInternal(_size.x,_size.y); 
+            SetVisitedAll();
+            SetNeighborCells();
+            return _cells;
+        }
+
+        private void SetVisitedAll()
+        {
+            foreach (var cell in _cells)
+            {
+                cell.SetVisited();
+            }
+        }
+
+        private void GenerateCellsInternal(int sizeX, int sizeY)
         {
             for (var i = 0; i < sizeX; i++)
             {
@@ -56,9 +75,6 @@ namespace Algorithms
                         new NeighborData(new List<bool>{false,false,false,false})));
                 }
             }
-
-            PerformBackTracing();
-            SetNeighborCells();
         }
 
         private void PerformBackTracing()

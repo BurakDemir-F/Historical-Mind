@@ -1,4 +1,6 @@
-﻿namespace Algorithms
+﻿using UnityEngine;
+
+namespace Algorithms
 {
     public class RoomData
     {
@@ -14,6 +16,11 @@
         public void SetBomb()
         {
             IsBomb = true;
+        }
+
+        public Vector2Int GetRoomPosition()
+        {
+            return Cell.Position;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Algorithms;
+using DG.Tweening;
 using Patterns;
 using ScriptableObjects;
 using Test;
@@ -25,6 +26,7 @@ namespace Maze
         [field:SerializeField]public List<Cell> GoalCellPath { get; private set; }
         public Cell GoalCell => GoalCellPath[^1];
 
+        public GameObject player; // test
 
         public void InitializeData()
         {
@@ -36,7 +38,7 @@ namespace Maze
         {
             var startTime = Time.realtimeSinceStartup;
             var backTracing = new BackTracing(_size.x, _size.y);
-            _cells = backTracing.GetCells();
+            _cells = backTracing.GetFullTracedCells();
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
@@ -45,7 +47,17 @@ namespace Maze
         {
             var startTime = Time.realtimeSinceStartup;
 
-            var bombPlacer = new BombPlacer(_cells, _size.x, _size.y);
+            var restrictedCells = new List<Cell>();
+
+            for (var i = 0; i < 3; i++)
+            {
+                restrictedCells.Add(_cells[i * _size.x]);
+                restrictedCells.Add(_cells[i * _size.x + 1]);
+                restrictedCells.Add(_cells[i * _size.x + 2]);
+            }
+            
+            
+            var bombPlacer = new BombPlacer(_cells, _size.x, _size.y, restrictedCells);
             _roomDataList = bombPlacer.GetRoomData();
             GoalCellPath = bombPlacer.GoalCellPath;
             
@@ -78,15 +90,31 @@ namespace Maze
 
             #region test
             
-            var player = Instantiate(testPlayer);
-            player.transform.position = new Vector3(0, 1f, 0);
+            // player = Instantiate(testPlayer);
+            // player.transform.position = new Vector3(0, 1f, 0);
+            //
+            // if (MazeInfo.TryGetRoom(new Vector2Int(0,0), out mazeRoom))
+            // {
+            //     mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
+            // }
             
-            if (MazeInfo.TryGetRoom(new Vector2Int(0,0), out mazeRoom))
-            {
-                mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
-            }
+            //PlayerWalking();
             #endregion
+        }
 
+        private void PlayerWalking()
+        {
+            var tween = DOTween.Sequence();
+            var lastRoom = MazeInfo.GetRooms();
+
+            foreach (var room in lastRoom)
+            {
+                var move = player.transform.DOMove(room.Value.transform.position, 3);
+                tween.Append(move);
+            }
+            
+            
+            tween.Play();
         }
     }
 }

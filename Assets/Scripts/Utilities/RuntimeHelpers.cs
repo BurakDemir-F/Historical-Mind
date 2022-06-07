@@ -32,6 +32,11 @@ namespace Utilities
             {
                 room.gameObject.SetActive(false);
             }
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
         }
 
         public void ShowGoalCell()
@@ -40,13 +45,13 @@ namespace Utilities
             var goalRoom = rooms[MazeGenerator.Instance.GoalCell.Position].gameObject;
             goalRoom.SetActive(true);
             Debug.Log("",goalRoom);
-
+            
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.SetParent(transform);
             cube.transform.position = goalRoom.transform.position;
             cube.transform.localScale = Vector3.one * 2;
             var _renderer = cube.GetComponent<Renderer>();
             _renderer.material.color = Color.red;
-
         }
         
         public void ShowGoalPath()
@@ -65,11 +70,11 @@ namespace Utilities
             room.SetActive(true);
             
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.SetParent(transform);
             cube.transform.position = room.transform.position;
             cube.transform.localScale = Vector3.one * 2;
             var _renderer = cube.GetComponent<Renderer>();
             _renderer.material.color = Color.red;
-            
         }
     }
 }
