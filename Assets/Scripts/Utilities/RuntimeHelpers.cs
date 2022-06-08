@@ -53,6 +53,21 @@ namespace Utilities
             var _renderer = cube.GetComponent<Renderer>();
             _renderer.material.color = Color.red;
         }
+
+        public void ShowStartCell()
+        {
+            var rooms = MazeInfo.GetRooms();
+            var startRoom = rooms[MazeGenerator.Instance.StartCell.Position].gameObject;
+            startRoom.SetActive(true);
+            Debug.Log("",startRoom);
+            
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.SetParent(transform);
+            cube.transform.position = startRoom.transform.position;
+            cube.transform.localScale = Vector3.one * 2;
+            var _renderer = cube.GetComponent<Renderer>();
+            _renderer.material.color = Color.green;
+        }
         
         public void ShowGoalPath()
         {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Maze;
 using UnityEngine;
+using Utilities;
 
 namespace Algorithms
 {
@@ -12,6 +13,8 @@ namespace Algorithms
 
         private List<Cell> _neighborCellsTemp;
         private MazeBase _maze;
+        private byte[,] _mazeData;
+        private LinkedList<Cell> goalPath;
         public BackTracing(Vector2Int size)
         {
             _cells = new List<Cell>();
@@ -19,10 +22,11 @@ namespace Algorithms
             GenerateCells();
         }
 
-        public BackTracing(int sizeX, int sizeY)
+        public BackTracing(int sizeX, int sizeY, MazeBase maze)
         {
             _cells = new List<Cell>();
             _size = new Vector2Int(sizeX, sizeY);
+            _maze = maze;
         }
         
         public BackTracing(Vector2Int size, int backTraceCount)
@@ -65,6 +69,40 @@ namespace Algorithms
             }
         }
 
+        public void GenerateCellsBasedOnMaze()
+        {
+            GenerateCellsInternal(_size.x,_size.y);
+            _maze.Generate();
+            _mazeData = _maze.map;
+
+            for (int i = 0; i < _size.x; i++)
+            for (int j = 0; j < _size.y; j++)
+            {
+                if (_mazeData[i, j] == 0) _cells[_cells.GetIndex(i, j, _size.x)].SetVisited();
+            }
+            
+            SetNeighborCells();
+        }
+
+        private void CreateGoalPath()
+        {
+            goalPath = new LinkedList<Cell>();
+            var firstCell = GetFirstVisitedCell();
+            
+        }
+
+        private Cell GetFirstVisitedCell()
+        {
+            for (int i = 0; i < _size.x; i++)
+            for (int j = 0; j < _size.y; j++)
+            {
+                var firstCell = _cells[_cells.GetIndex(i,j,_size.x)];
+                if (firstCell.IsVisited) return firstCell;
+            }
+
+            return _cells[0];
+        }
+        
         private void GenerateCellsInternal(int sizeX, int sizeY)
         {
             for (var i = 0; i < sizeX; i++)

@@ -28,15 +28,20 @@ namespace Utilities
             {
                 _helpers.ActivateBombCells();
             }
-            
+
             if (GUILayout.Button("Show Goal Path"))
             {
                 _helpers.ShowGoalPath();
             }
-            
+
             if (GUILayout.Button("Show Goal Room"))
             {
                 _helpers.ShowGoalCell();
+            }
+
+            if (GUILayout.Button("Show Start Room"))
+            {
+                _helpers.ShowStartCell();
             }
         }
     }

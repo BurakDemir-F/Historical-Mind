@@ -14,6 +14,33 @@ namespace Maze
             x = _x;
             z = _z;
         }
+
+        public Vector2 ToVector()
+        {
+            return new Vector2(x, z);
+        }
+
+        public static MapLocation operator +(MapLocation a, MapLocation b)
+            => new MapLocation(a.x + b.x, a.z + b.z);
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else 
+            {
+                return x == ((MapLocation)obj).x && z == ((MapLocation)obj).z;
+            }
+
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
+        }
+
     }
 
     public class MazeBase
@@ -46,8 +73,8 @@ namespace Maze
         void InitialiseMap()
         {
             map = new byte[width,depth];
-            for (int z = 0; z < depth; z++)
             for (int x = 0; x < width; x++)
+            for (int z = 0; z < depth; z++)
             {
                 map[x, z] = 1;     //1 = wall  0 = corridor
             }

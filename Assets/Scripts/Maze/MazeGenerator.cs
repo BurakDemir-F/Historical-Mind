@@ -22,9 +22,13 @@ namespace Maze
         private Vector2Int _size;
         private List<Cell> _cells;
         private List<RoomData> _roomDataList;
+        private MazeBase _depthFirstMaze;
+        public List<Cell> GoalCellPath { get; private set; }
+        public Cell GoalCell { get; private set; }
+        public Cell StartCell { get; private set; }
         
-        [field:SerializeField]public List<Cell> GoalCellPath { get; private set; }
-        public Cell GoalCell => GoalCellPath[^1];
+        //[field:SerializeField]public List<Cell> GoalCellPath { get; private set; }
+        //public Cell GoalCell => GoalCellPath[^1];
 
         public GameObject player; // test
 
@@ -37,8 +41,10 @@ namespace Maze
         public void GenerateBackTracking()
         {
             var startTime = Time.realtimeSinceStartup;
-            var backTracing = new BackTracing(_size.x, _size.y);
-            _cells = backTracing.GetFullTracedCells();
+            _depthFirstMaze = new DepthFirstMaze(_size.x, _size.y);
+            var backTracing = new BackTracing(_size.x, _size.y,_depthFirstMaze);
+            backTracing.GenerateCellsBasedOnMaze();
+            _cells = backTracing.GetCells();
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
@@ -55,13 +61,26 @@ namespace Maze
                 restrictedCells.Add(_cells[i * _size.x + 1]);
                 restrictedCells.Add(_cells[i * _size.x + 2]);
             }
-            
-            
+
             var bombPlacer = new BombPlacer(_cells, _size.x, _size.y, restrictedCells);
             _roomDataList = bombPlacer.GetRoomData();
-            GoalCellPath = bombPlacer.GoalCellPath;
+            //GoalCellPath = bombPlacer.GoalCellPath;
+
+            var goalFinder = new GoalFinder(_cells, _size.x, _size.y);
+            StartCell = goalFinder.FindFirstSafeCell();
+            GoalCell = goalFinder.FindGoalCell();
+            var aStar = new AStar(_depthFirstMaze,
+                new PathMarker(new MapLocation(StartCell.Position.x, StartCell.Position.y), 0, 0, 0, null),
+                new PathMarker(new MapLocation(GoalCell.Position.x, GoalCell.Position.y), 0, 0, 0, null));
             
-            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - set bombs");
+            aStar.PerformAStar();
+            if(aStar.IsCompletedSuccessfully)
+            {
+                print("A star successful");
+                GoalCellPath = goalFinder.FindCellsFromPositions(aStar.GetPathCells());
+            }
+
+            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - set path and bombs");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
@@ -72,7 +91,7 @@ namespace Maze
             foreach (var roomData in _roomDataList)
             {
                 var cell = roomData.Cell;
-                if (!cell.IsVisited) continue;
+                //if (!cell.IsVisited) continue;
 
                 var newRoom = Instantiate(mazeRoom, 
                     new Vector3(cell.Position.x * roomOffset, 0f, -cell.Position.y * roomOffset),
@@ -81,7 +100,7 @@ namespace Maze
                 newRoom.name = $"Room: {cell.Position.x} : {cell.Position.y}";
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
                 newRoom.SetRoomPosition(cell.Position);
-                newRoom.SetBombRoom(roomData.IsBomb);
+                newRoom.SetBombRoom(/*roomData.IsBomb*/ !cell.IsVisited);
                 MazeInfo.AddRoom(cell.Position,newRoom);
             }
 
@@ -89,15 +108,17 @@ namespace Maze
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
 
             #region test
-            
-            // player = Instantiate(testPlayer);
-            // player.transform.position = new Vector3(0, 1f, 0);
             //
-            // if (MazeInfo.TryGetRoom(new Vector2Int(0,0), out mazeRoom))
+            // var spawnRoom = new Vector2Int(StartCell.Position.x,StartCell.Position.y);
+            // var isFound = MazeInfo.TryGetRoom(spawnRoom, out mazeRoom);
+            // if (isFound)
             // {
+            //     player = Instantiate(testPlayer);
+            //     var roomPosition = mazeRoom.transform.position;
+            //     player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
             //     mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
             // }
-            
+            //
             //PlayerWalking();
             #endregion
         }

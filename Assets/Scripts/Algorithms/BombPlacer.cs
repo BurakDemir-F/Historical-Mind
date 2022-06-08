@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace Algorithms
 {
@@ -51,6 +52,15 @@ namespace Algorithms
             }
         }
 
+        private void PlaceBombs2()
+        {
+            foreach (var cell in _cells)
+            {
+                if(_restrictedCells.Contains(cell)) continue;
+                if (!cell.IsVisited) _roomDataList[_roomDataList.GetIndex(cell.Position.x, cell.Position.y, _width)].SetBomb();
+            }
+        }
+
         private bool IsSafeToPlace()
         {
             return false;
@@ -58,10 +68,10 @@ namespace Algorithms
         
         private void PlaceBombsAndGoalPath()
         {
-            PlaceBombs();
+            PlaceBombs2();
             
-            var goalFinder = new GoalFinder(_roomDataList, _cells, _cells[0], _width, _height);
-            GoalCellPath = goalFinder.FindGoalPath(_roomDataList[0]);
+            // var goalFinder = new GoalFinder(_roomDataList, _cells, _cells[0], _width, _height);
+            // GoalCellPath = goalFinder.FindGoalPath(_roomDataList[_roomDataList.GetIndex(1,1,_width)]);
 
             // for (int counter = 0; counter < _width; counter++)
             // {

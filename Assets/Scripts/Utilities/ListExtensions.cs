@@ -15,6 +15,11 @@ namespace Utilities
                 (list[k], list[n]) = (list[n], list[k]);
             }
         }
+        
+        public static int GetIndex<T>(this IList<T> list,int x, int y, int width)
+        {
+            return y * width + x;
+        }
 
     }
 }
