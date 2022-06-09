@@ -87,7 +87,7 @@ namespace Algorithms
 
             foreach (var cell in _controlCells)
             {
-                if (cell.IsVisited) return cell;
+                if (!cell.IsDangerous) return cell;
             }
 
             return _controlCells[0];
@@ -98,7 +98,7 @@ namespace Algorithms
             for (var index = _controlCells.Count - 1; index >= 0; index--)
             {
                 var cell = _controlCells[index];
-                if (cell.IsVisited) return cell;
+                if (!cell.IsDangerous) return cell;
             }
 
             return _controlCells[^1];

@@ -78,9 +78,10 @@ namespace Algorithms
             for (int i = 0; i < _size.x; i++)
             for (int j = 0; j < _size.y; j++)
             {
-                if (_mazeData[i, j] == 0) _cells[_cells.GetIndex(i, j, _size.x)].SetVisited();
+                if (_mazeData[i, j] == 1) _cells[_cells.GetIndex(i, j, _size.x)].SetDangerous();
             }
             
+            SetVisitedAll();
             SetNeighborCells();
         }
 

@@ -100,6 +100,7 @@ MonoBehaviour:
   - {fileID: 2833149140457903626}
   - {fileID: 2833149139563261151}
   testStatuses: 
+  <IsBombRoom>k__BackingField: 0
 --- !u!65 &9218331068530317155
 BoxCollider:
   m_ObjectHideFlags: 0

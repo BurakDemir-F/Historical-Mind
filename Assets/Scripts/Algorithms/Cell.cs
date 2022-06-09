@@ -7,6 +7,7 @@ namespace Algorithms
     {
         public Vector2Int Position { get; private set; }
         public bool IsVisited { get; private set; }
+        public bool IsDangerous { get; private set; }
         private NeighborData _neighborData;
         public Cell(Vector2Int position, bool isVisited,NeighborData neighborData)
         {
@@ -33,6 +34,7 @@ namespace Algorithms
         
         public void SetSideNeighbor(int side) => _neighborData.SetNeighborStatus(side);
         public void SetVisited() => IsVisited = true;
+        public void SetDangerous() => IsDangerous = true;
 
         public List<bool> GetNeighborStatuses() => _neighborData.GetNeighborStatuses();
 

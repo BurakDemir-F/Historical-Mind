@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Algorithms;
 using DG.Tweening;
 using Patterns;
@@ -100,7 +101,7 @@ namespace Maze
                 newRoom.name = $"Room: {cell.Position.x} : {cell.Position.y}";
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
                 newRoom.SetRoomPosition(cell.Position);
-                newRoom.SetBombRoom(/*roomData.IsBomb*/ !cell.IsVisited);
+                newRoom.SetBombRoom(/*roomData.IsBomb*/ cell.IsDangerous);
                 MazeInfo.AddRoom(cell.Position,newRoom);
             }
 
@@ -108,17 +109,17 @@ namespace Maze
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
 
             #region test
-            //
-            // var spawnRoom = new Vector2Int(StartCell.Position.x,StartCell.Position.y);
-            // var isFound = MazeInfo.TryGetRoom(spawnRoom, out mazeRoom);
-            // if (isFound)
-            // {
-            //     player = Instantiate(testPlayer);
-            //     var roomPosition = mazeRoom.transform.position;
-            //     player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
-            //     mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
-            // }
-            //
+            
+            var spawnRoom = new Vector2Int(StartCell.Position.x,StartCell.Position.y);
+            var isFound = MazeInfo.TryGetRoom(spawnRoom, out mazeRoom);
+            if (isFound)
+            {
+                player = Instantiate(testPlayer);
+                var roomPosition = mazeRoom.transform.position;
+                player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
+                mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
+            }
+            
             //PlayerWalking();
             #endregion
         }
