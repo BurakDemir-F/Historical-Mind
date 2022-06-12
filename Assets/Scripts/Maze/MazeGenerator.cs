@@ -1,14 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Algorithms;
 using DG.Tweening;
 using Patterns;
 using ScriptableObjects;
-using Test;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Maze
 {
@@ -103,25 +100,35 @@ namespace Maze
                 newRoom.SetRoomPosition(cell.Position);
                 newRoom.SetBombRoom(/*roomData.IsBomb*/ cell.IsDangerous);
                 MazeInfo.AddRoom(cell.Position,newRoom);
+                MazeInfo.AddRoomData(newRoom,roomData);
             }
 
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate maze");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
 
             #region test
+
+            StartCoroutine(CreateTestPlayer(StartCell.Position));
+
+            //PlayerWalking();
+
+            #endregion
+        }
+
+        private IEnumerator CreateTestPlayer(Vector2Int spawnRoom)
+        {
+            yield return new WaitForSeconds(1f);
             
-            var spawnRoom = new Vector2Int(StartCell.Position.x,StartCell.Position.y);
+            spawnRoom = new Vector2Int(StartCell.Position.x, StartCell.Position.y);
             var isFound = MazeInfo.TryGetRoom(spawnRoom, out mazeRoom);
             if (isFound)
             {
+                mazeRoom.gameObject.SetActive(true);
                 player = Instantiate(testPlayer);
                 var roomPosition = mazeRoom.transform.position;
                 player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
-                mazeRoom.OnTriggerEnter(player.GetComponent<Collider>());    
+                mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(player.GetComponent<Collider>());
             }
-            
-            //PlayerWalking();
-            #endregion
         }
 
         private void PlayerWalking()

@@ -15,15 +15,15 @@ public class TextInfoTest : MonoBehaviour
 
     private void OnEnable()
     {
-        RoomBehaviour.onRoomEntered += RoomEnteredHandler;
+        RoomEnterBehaviour.onRoomEntered += RoomEnteredHandler;
     }
 
     private void OnDisable()
     {
-        RoomBehaviour.onRoomEntered += RoomEnteredHandler;
+        RoomEnterBehaviour.onRoomEntered += RoomEnteredHandler;
     }
 
-    private void RoomEnteredHandler(RoomBehaviour room, Collider col)
+    private void RoomEnteredHandler(RoomBehaviour room, Collider col, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
     {
         if(room.IsBombRoom)
         {

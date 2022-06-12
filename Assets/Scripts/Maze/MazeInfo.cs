@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Algorithms;
 using UnityEngine;
 
 namespace Maze
@@ -10,11 +12,13 @@ namespace Maze
 
         private static Dictionary<Vector2Int, RoomBehaviour> _rooms;
         private static readonly List<RoomBehaviour> ActiveRooms = new ();
+        private static Dictionary<RoomBehaviour, RoomData> _roomDatas;
 
         public static void InitMazeInfo(Vector2Int mazeSize)
         {
             size = mazeSize;
             _rooms = new Dictionary<Vector2Int, RoomBehaviour>(size.x * size.y);
+            _roomDatas = new Dictionary<RoomBehaviour, RoomData>(size.x * size.y);
         }
         
         public static void AddRoom(Vector2Int position, RoomBehaviour room)
@@ -28,6 +32,27 @@ namespace Maze
             if (!_rooms.ContainsKey(position)) _rooms.Remove(position);
         }
 
+        public static void AddRoomData(RoomBehaviour roomBehaviour, RoomData data)
+        {
+            if (!_roomDatas.ContainsKey(roomBehaviour))
+            {
+                _roomDatas.Add(roomBehaviour,data);
+            }
+        }
+        
+        public static void RemoveRoomData(RoomBehaviour roomBehaviour, RoomData data)
+        {
+            if (_roomDatas.ContainsKey(roomBehaviour))
+            {
+                _roomDatas.Remove(roomBehaviour);
+            }
+        }
+
+        public static RoomData GetRoomData(RoomBehaviour roomBehaviour)
+        {
+            return _roomDatas.ContainsKey(roomBehaviour) ? _roomDatas[roomBehaviour] : null;
+        }
+        
         public static Dictionary<Vector2Int,RoomBehaviour> GetRooms()
         {
             return _rooms;

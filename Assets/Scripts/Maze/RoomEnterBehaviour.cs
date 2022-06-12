@@ -3,18 +3,21 @@ using UnityEngine;
 
 namespace Maze
 {
-    public class RoomEnterController : MonoBehaviour
+    public class RoomEnterBehaviour : MonoBehaviour
     {
+        [SerializeField] private RoomBehaviour thisRoomBehaviour;
+        
+        public static Action<RoomBehaviour,Collider,RoomBehaviour, RoomBehaviour, RoomBehaviour, RoomBehaviour> onRoomEntered;
         private void Start()
         {
-            RoomBehaviour.onRoomEntered += RoomEnterHandler;
+            onRoomEntered += RoomEnterHandler;
         }
         private void OnDestroy()
         {
-            RoomBehaviour.onRoomEntered -= RoomEnterHandler;
+            onRoomEntered -= RoomEnterHandler;
         }
 
-        private void RoomEnterHandler(RoomBehaviour currentRoom, Collider other)
+        private void RoomEnterHandler(RoomBehaviour currentRoom, Collider other, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
         {
             if (!other.CompareTag("Player")) return;
 
@@ -38,6 +41,14 @@ namespace Maze
                 room.gameObject.SetActive(true);
                 MazeInfo.AddActiveRoom(room);
             }
+        }
+        
+        public void OnTriggerEnter(Collider other)
+        {
+            var position = thisRoomBehaviour.GetRoomPosition();
+            
+            onRoomEntered?.Invoke(thisRoomBehaviour,other,MazeInfo.GetUpNeighbor(position), MazeInfo.GetDownNeighbor(position),
+                MazeInfo.GetRightNeighbor(position), MazeInfo.GetLeftNeighbor(position));
         }
     }
 }
