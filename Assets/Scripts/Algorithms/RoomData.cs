@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using MazeWorld;
+using UnityEngine;
 
 namespace Algorithms
 {
@@ -21,6 +23,11 @@ namespace Algorithms
         public Vector2Int GetRoomPosition()
         {
             return Cell.Position;
+        }
+
+        public List<MazeWorldCreatures> GetCreatures()
+        {
+            return new List<MazeWorldCreatures>();
         }
     }
 }
