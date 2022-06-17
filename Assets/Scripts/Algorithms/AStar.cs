@@ -169,11 +169,19 @@ namespace Algorithms
             return false;
         }
 
-        public void PerformAStar()
+        
+        
+        public IEnumerator PerformAStar(int waitStep, YieldInstruction wait)
         {
             BeginSearch();
+
+            var counter = 0;
             while (!done)
+            {
                 Search(lastPos);
+                if (++counter % waitStep == 0) yield return wait;
+            }
+
             //maze.InitialiseMap();
             MarkPath();
             //maze.DrawMap();

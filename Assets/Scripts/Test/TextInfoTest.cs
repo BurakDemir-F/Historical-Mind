@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Maze;
 using UnityEngine;
 
@@ -25,7 +22,7 @@ public class TextInfoTest : MonoBehaviour
 
     private void RoomEnteredHandler(RoomBehaviour room, Collider col, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
     {
-        if(room.IsBombRoom)
+        if(MazeInfo.GetRoomData(room).IsBomb)
         {
             SetText("you are dead");
             return;
@@ -35,7 +32,7 @@ public class TextInfoTest : MonoBehaviour
         var counter = 0;
         foreach (var neighbor in neighbors)
         {
-            if (neighbor.IsBombRoom)
+            if (MazeInfo.GetRoomData(neighbor).IsBomb)
             {
                 counter++;
             }

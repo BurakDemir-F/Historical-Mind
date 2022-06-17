@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities;
-using Object = System.Object;
 
 namespace MazeWorld.Dedalus
 {
     public class DedalusEye : MonoBehaviour
     {
-        [SerializeField]private CreatureObjectDictionary dedalusEyeData = new CreatureObjectDictionary();
+        [SerializeField]private CreatureObjectDictionary dedalusEyeData;
         [SerializeField] private Locator locator;
-        private Dictionary<MazeWorldCreatures, GameObject> _shownData = new Dictionary<MazeWorldCreatures, GameObject>();
-        
+        private readonly Dictionary<MazeWorldCreatures, GameObject> _shownData = new ();
         
         public void ShowCreatures(List<MazeWorldCreatures> creatures)
         {
@@ -22,19 +19,37 @@ namespace MazeWorld.Dedalus
                 if (_shownData.ContainsKey(creature))
                 {
                     _shownData[creature].SetActive(true);
+                    continue;
                 }
-                else
-                {
-                    var newCreature = Instantiate(dedalusEyeData[creature].prefab);
-                    newCreature.transform.position = locator.GetPosition();
-                    _shownData.Add(creature,newCreature);
-                }
+
+                var newCreature = Instantiate(dedalusEyeData[creature].prefab, transform, true);
+                newCreature.transform.position = locator.GetPosition();
+                _shownData.Add(creature, newCreature);
             }
         }
+
+        [ContextMenu("Show Creatures")]
+        public void ShowCreaturesTest()
+        {
+            ShowCreatures(new List<MazeWorldCreatures>(){MazeWorldCreatures.Player,MazeWorldCreatures.Ghost});
+        }
+
+        [ContextMenu("Restart")]
+        public void Restart()
+        {
+            locator.Restart();
+            foreach (var creaturePointer in _shownData)
+            {
+                DestroyImmediate(creaturePointer.Value);
+            }
+            _shownData.Clear();
+        }
+    }
+
+    [Serializable]
+    public class CreatureObjectDictionary : SerializableDictionary<MazeWorldCreatures, PointerScriptableObject>
+    {
         
     }
-    
-    [Serializable]
-    public class CreatureObjectDictionary : SerializableDictionary<MazeWorldCreatures,PointerScriptableObject>{}
     
 }

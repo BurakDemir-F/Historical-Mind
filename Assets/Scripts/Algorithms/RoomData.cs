@@ -9,10 +9,13 @@ namespace Algorithms
         public Cell Cell { get; private set; }
         public bool IsBomb { get; private set; }
 
+        private List<MazeWorldCreatures> _creatures; 
+
         public RoomData(Cell cell, bool isBomb)
         {
             Cell = cell;
             IsBomb = isBomb;
+            _creatures = new List<MazeWorldCreatures>();
         }
 
         public void SetBomb()
@@ -27,7 +30,12 @@ namespace Algorithms
 
         public List<MazeWorldCreatures> GetCreatures()
         {
-            return new List<MazeWorldCreatures>();
+            return _creatures;
+        }
+
+        public void AddCreature(MazeWorldCreatures creature)
+        {
+            if(!_creatures.Contains(creature)) _creatures.Add(creature);
         }
     }
 }

@@ -7,11 +7,13 @@
         Thing
     }
     
+    [System.Serializable]
     public enum MazeWorldCreatures
     {
         None,
         Player,
-        Ghost
+        Ghost,
+        OozeyGreenMug
     }
 
     public enum MazeWorldObjects

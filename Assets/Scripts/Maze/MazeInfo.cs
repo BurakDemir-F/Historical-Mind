@@ -7,12 +7,18 @@ namespace Maze
 {
     public static class MazeInfo
     {
-        public static Vector2Int size = new(10,10);
-        public static Vector2Int currentRoomPosition = new (1000,1000);
-
         private static Dictionary<Vector2Int, RoomBehaviour> _rooms;
         private static readonly List<RoomBehaviour> ActiveRooms = new ();
         private static Dictionary<RoomBehaviour, RoomData> _roomDatas;
+        
+        public static Vector2Int size = new(10,10);
+        public static Vector2Int currentRoomPosition = new (1000,1000);
+        
+        public static Cell startCell;
+        public static RoomBehaviour StartRoom => _rooms[new Vector2Int(startCell.Position.x,startCell.Position.y)];
+        
+        public static Cell goalCell;
+        public static RoomBehaviour GoalRoom=> _rooms[new Vector2Int(goalCell.Position.x,goalCell.Position.y)];
 
         public static void InitMazeInfo(Vector2Int mazeSize)
         {
@@ -50,7 +56,7 @@ namespace Maze
 
         public static RoomData GetRoomData(RoomBehaviour roomBehaviour)
         {
-            return _roomDatas.ContainsKey(roomBehaviour) ? _roomDatas[roomBehaviour] : null;
+            return _roomDatas[roomBehaviour];
         }
         
         public static Dictionary<Vector2Int,RoomBehaviour> GetRooms()
@@ -143,6 +149,15 @@ namespace Maze
             return _rooms.ContainsKey(pos) ? _rooms[pos] : null;
 
         }
+
+        public static float GetDistanceToGoalCell(Cell cell)
+        {
+            var totalDistance = GetDistanceStartToGoal();
+            var currentCellToGoal = Vector2Int.Distance(cell.Position, goalCell.Position);
+            return currentCellToGoal / totalDistance;
+        }
+
+        public static float GetDistanceStartToGoal() => Vector2Int.Distance(startCell.Position, goalCell.Position);
     }
     
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using MazeWorld;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Maze
 {
@@ -9,9 +11,10 @@ namespace Maze
         /*0 - up, 1 - down, 2 - right, 3 - left*/
         [SerializeField]private GameObject[] walls,doors;
         [SerializeField]private List<bool> testStatuses;
+        [field:SerializeField] public Locator Locator { get; private set; }
 
         private Vector2Int _position;
-        [field:SerializeField]public bool IsBombRoom { get; private set; }
+        //[field:SerializeField]public bool IsBombRoom { get; private set; }
         
         private void OnDestroy()
         {
@@ -46,11 +49,6 @@ namespace Maze
         public void UpdateRoomTest()
         {
             UpdateRoom(testStatuses);
-        }
-
-        public void SetBombRoom(bool status)
-        {
-            IsBombRoom = status;
         }
     }
 }

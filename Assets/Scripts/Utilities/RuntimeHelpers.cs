@@ -11,7 +11,7 @@ namespace Utilities
             var rooms = MazeInfo.GetRooms().Values;
             foreach (var room in rooms)
             {
-                room.gameObject.SetActive(room.IsBombRoom);
+                room.gameObject.SetActive(MazeInfo.GetRoomData(room).IsBomb);
             }
         }
 

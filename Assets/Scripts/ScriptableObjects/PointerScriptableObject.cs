@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
+    [System.Serializable]
     [CreateAssetMenu(fileName = "PointerScriptableObject", menuName = "ScriptableObjects/Pointer")]
     public class PointerScriptableObject : ScriptableObject
     {

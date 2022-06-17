@@ -47,10 +47,9 @@ namespace Maze
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
-        public void SetBombs()
+        public IEnumerator SetBombs()
         {
             var startTime = Time.realtimeSinceStartup;
-
             var restrictedCells = new List<Cell>();
 
             for (var i = 0; i < 3; i++)
@@ -65,13 +64,19 @@ namespace Maze
             //GoalCellPath = bombPlacer.GoalCellPath;
 
             var goalFinder = new GoalFinder(_cells, _size.x, _size.y);
+            
             StartCell = goalFinder.FindFirstSafeCell();
             GoalCell = goalFinder.FindGoalCell();
+            MazeInfo.startCell = StartCell;
+            MazeInfo.goalCell = GoalCell;
+            
             var aStar = new AStar(_depthFirstMaze,
                 new PathMarker(new MapLocation(StartCell.Position.x, StartCell.Position.y), 0, 0, 0, null),
                 new PathMarker(new MapLocation(GoalCell.Position.x, GoalCell.Position.y), 0, 0, 0, null));
-            
-            aStar.PerformAStar();
+
+            var wait = new WaitForEndOfFrame();
+
+            yield return StartCoroutine(aStar.PerformAStar(30, wait));
             if(aStar.IsCompletedSuccessfully)
             {
                 print("A star successful");
@@ -82,15 +87,16 @@ namespace Maze
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
-        public void GenerateMaze()
+        public IEnumerator GenerateMaze()
         {
             var startTime = Time.realtimeSinceStartup;
+
+            var counter = 0;
+            var waitForEndOfFrame = new WaitForEndOfFrame();
 
             foreach (var roomData in _roomDataList)
             {
                 var cell = roomData.Cell;
-                //if (!cell.IsVisited) continue;
-
                 var newRoom = Instantiate(mazeRoom, 
                     new Vector3(cell.Position.x * roomOffset, 0f, -cell.Position.y * roomOffset),
                     Quaternion.identity);
@@ -98,24 +104,35 @@ namespace Maze
                 newRoom.name = $"Room: {cell.Position.x} : {cell.Position.y}";
                 newRoom.UpdateRoom(cell.GetNeighborStatuses());
                 newRoom.SetRoomPosition(cell.Position);
-                newRoom.SetBombRoom(/*roomData.IsBomb*/ cell.IsDangerous);
                 MazeInfo.AddRoom(cell.Position,newRoom);
                 MazeInfo.AddRoomData(newRoom,roomData);
+                
+                if (++counter % 10 == 0) yield return waitForEndOfFrame;
             }
 
+            DebugRoomDataListInfo();
+            
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate maze");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
-
-            #region test
-
-            StartCoroutine(CreateTestPlayer(StartCell.Position));
-
-            //PlayerWalking();
-
-            #endregion
         }
 
-        private IEnumerator CreateTestPlayer(Vector2Int spawnRoom)
+        private void DebugRoomDataListInfo()
+        {
+            var bombCounter = 0;
+            var freeCounter = 0;
+            
+            foreach (var room in _roomDataList)
+            {
+                if (room.IsBomb) bombCounter++;
+                else freeCounter++;
+            }
+            
+            Debug.Log($"bomb count{bombCounter}");
+            Debug.Log($"free count{freeCounter}");
+
+        }
+
+        public IEnumerator CreateTestPlayer(Vector2Int spawnRoom)
         {
             yield return new WaitForSeconds(1f);
             

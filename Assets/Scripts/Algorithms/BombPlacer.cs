@@ -57,7 +57,7 @@ namespace Algorithms
             foreach (var cell in _cells)
             {
                 if(_restrictedCells.Contains(cell)) continue;
-                if (!cell.IsVisited) _roomDataList[_roomDataList.GetIndex(cell.Position.x, cell.Position.y, _width)].SetBomb();
+                if (cell.IsDangerous) _roomDataList[_roomDataList.GetIndex(cell.Position.x, cell.Position.y, _width)].SetBomb();
             }
         }
 

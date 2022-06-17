@@ -1,15 +1,27 @@
+using System.Collections;
 using Maze;
+using MazeWorld;
+using UnityEngine;
 
 namespace Managers
 {
     public class GameManager : Patterns.Singleton<GameManager>
     {
-        private void Start()
+        [SerializeField] private int waitStep = 10;
+
+        private IEnumerator Start()
         {
             MazeGenerator.Instance.InitializeData();
             MazeGenerator.Instance.GenerateBackTracking();
-            MazeGenerator.Instance.SetBombs();
-            MazeGenerator.Instance.GenerateMaze();
+            yield return StartCoroutine(MazeGenerator.Instance.SetBombs());
+            yield return StartCoroutine(MazeGenerator.Instance.GenerateMaze());
+
+            var wait = new WaitForEndOfFrame();
+            yield return CreatureManager.Instance.PerformCor(waitStep, wait);
+
+            var startCell = MazeGenerator.Instance.StartCell;
+            var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);
+            StartCoroutine(MazeGenerator.Instance.CreateTestPlayer(startVector));
         }
     }
 }
