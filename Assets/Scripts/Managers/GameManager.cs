@@ -17,7 +17,7 @@ namespace Managers
             yield return StartCoroutine(MazeGenerator.Instance.GenerateMaze());
 
             var wait = new WaitForEndOfFrame();
-            yield return CreatureManager.Instance.PerformCor(waitStep, wait);
+            yield return CreatureSpawner.Instance.PerformCor(waitStep, wait);
 
             var startCell = MazeGenerator.Instance.StartCell;
             var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);

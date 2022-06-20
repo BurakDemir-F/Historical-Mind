@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 136721072}
   - component: {fileID: 136721071}
   m_Layer: 0
-  m_Name: CreatureManager
+  m_Name: CreatureSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,9 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDictionary:
     isModifiable: 0
-    keys: 02000000
+    keys: 0300000004000000
     values:
     - {fileID: 11400000, guid: 49133c91a46eef34c99848bad71ebb0c, type: 2}
+    - {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
+  distanceDistribution: {fileID: 11400000, guid: e8f0af462b7df81448922fc8d30e3086,
+    type: 2}
 --- !u!4 &136721072
 Transform:
   m_ObjectHideFlags: 0

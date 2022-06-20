@@ -25,7 +25,7 @@ namespace Patterns
             }
         }
 
-        public void Awake()
+        public virtual void Awake()
         {
             if (_instance == null)
             {

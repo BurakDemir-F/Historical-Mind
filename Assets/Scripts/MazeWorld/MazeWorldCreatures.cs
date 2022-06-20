@@ -13,7 +13,8 @@
         None,
         Player,
         Ghost,
-        OozeyGreenMug
+        OozeyGreenMug,
+        OozeyRedMug
     }
 
     public enum MazeWorldObjects

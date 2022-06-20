@@ -1,19 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Algorithms;
 using Maze;
 using Patterns;
+using ScriptableObjects;
 using UnityEngine;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace MazeWorld
 {
-    public class CreatureManager : Singleton<CreatureManager>, IRunOnFrames
+    public class CreatureSpawner : Singleton<CreatureSpawner>, IRunOnFrames
     {
         [SerializeField] private CreatureLivingThingDict creatureDictionary;
-        private List<MazeWorldCreatures> _creatureKeys = new List<MazeWorldCreatures>();
+        [SerializeField] private CreatureDistanceDistribution distanceDistribution;
+        private List<MazeWorldCreatures> _creatureKeys = new ();
+        private CreatureTypeFinder _typeFinder;
 
+        public override void Awake()
+        {
+            base.Awake();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _typeFinder = new CreatureTypeFinder(distanceDistribution, creatureDictionary);
+        }
+        
         public Coroutine PerformCor(int waitStep, YieldInstruction wait)
         {
             return StartCoroutine(CreateMonsters(waitStep,wait));
@@ -30,12 +46,29 @@ namespace MazeWorld
                 var roomData = (MazeInfo.GetRoomData(room.Value));
                 if (!roomData.IsBomb) continue;
                 var distanceToGoal = MazeInfo.GetDistanceToGoalCell(roomData.Cell);
-                //print($"distance to goal:{distanceToGoal}");
-                if (distanceToGoal > 0.7f) continue;
-                CreateMonster(GetRandomCreature(),room.Value.Locator.GetPosition(),room.Value);
+                CreateMonster(GetCreatureType(distanceToGoal),room.Value.Locator.GetPosition(),room.Value);
             }
         }
 
+        public List<MazeWorldCreatures> GetMonstersBasedOnDistance(float distance)
+        {
+            var resultMonsters = new List<MazeWorldCreatures>();
+
+            foreach (var creature in creatureDictionary)
+            {
+                if(creature.Value.DangerValue < distance) 
+                    resultMonsters.Add(creature.Key);
+            }
+
+            return resultMonsters;
+        }
+
+        private MazeWorldCreatures GetCreatureType(float distance)
+        {
+            return _typeFinder.GetCreatureType(distance);
+        }
+        
+        [Obsolete]
         private MazeWorldCreatures GetRandomCreature()
         {
             var creatureKeys = GetCreatureKeyList();
@@ -45,6 +78,8 @@ namespace MazeWorld
         
         private void CreateMonster(MazeWorldCreatures creatureType, Vector3 pos,RoomBehaviour room)
         {
+            if(creatureType == MazeWorldCreatures.None) return;
+            
             var creature = Instantiate(creatureDictionary[creatureType].Flesh, room.transform);
             creature.transform.position = pos;
             creature.transform.SetParent(room.transform);
@@ -58,7 +93,7 @@ namespace MazeWorld
             return _creatureKeys;
         }
     }
-    
+
     [System.Serializable]
     public class CreatureLivingThingDict : SerializableDictionary<MazeWorldCreatures,LivingThing>{}
 }
