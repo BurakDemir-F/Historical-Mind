@@ -154,7 +154,9 @@ namespace Maze
         {
             var totalDistance = GetDistanceStartToGoal();
             var currentCellToGoal = Vector2Int.Distance(cell.Position, goalCell.Position);
-            return currentCellToGoal / totalDistance;
+            var result = currentCellToGoal / totalDistance;
+            
+            return result <= 1 ? result : 1;
         }
 
         public static float GetDistanceStartToGoal() => Vector2Int.Distance(startCell.Position, goalCell.Position);

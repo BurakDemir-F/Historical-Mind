@@ -17,7 +17,7 @@ namespace MazeWorld
         [SerializeField] private CreatureLivingThingDict creatureDictionary;
         [SerializeField] private CreatureDistanceDistribution distanceDistribution;
         private List<MazeWorldCreatures> _creatureKeys = new ();
-        private CreatureTypeFinder _typeFinder;
+        private DistanceThingPicker<LivingThing> _typeFinder;
 
         public override void Awake()
         {
@@ -27,7 +27,7 @@ namespace MazeWorld
 
         private void Initialize()
         {
-            _typeFinder = new CreatureTypeFinder(distanceDistribution, creatureDictionary);
+            _typeFinder = new DistanceThingPicker<LivingThing>(distanceDistribution, creatureDictionary.Values.ToList());
         }
         
         public Coroutine PerformCor(int waitStep, YieldInstruction wait)
@@ -50,22 +50,11 @@ namespace MazeWorld
             }
         }
 
-        public List<MazeWorldCreatures> GetMonstersBasedOnDistance(float distance)
-        {
-            var resultMonsters = new List<MazeWorldCreatures>();
-
-            foreach (var creature in creatureDictionary)
-            {
-                if(creature.Value.DangerValue < distance) 
-                    resultMonsters.Add(creature.Key);
-            }
-
-            return resultMonsters;
-        }
-
         private MazeWorldCreatures GetCreatureType(float distance)
         {
-            return _typeFinder.GetCreatureType(distance);
+            var result = _typeFinder.GetThingBasedOnDistance(distance);
+            if (!result.IsSuccessful) return MazeWorldCreatures.None;
+            return result.Value.Kind;
         }
         
         [Obsolete]

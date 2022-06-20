@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7db4e38d7238e342a205cc149e18263, type: 3}
   m_Name: CreatureDistanceDistribution
   m_EditorClassIdentifier: 
-  starter: {x: 0.7, y: 1}
-  regular: {x: 0.3, y: 0.7}
-  boss: {x: 0, y: 0.3}
+  <DistanceDistributions>k__BackingField:
+  - {x: 0.7, y: 1}
+  - {x: 0.4, y: 0.7}
+  - {x: 0, y: 0.4}
