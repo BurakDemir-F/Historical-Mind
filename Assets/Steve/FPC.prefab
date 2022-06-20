@@ -44,8 +44,8 @@ Camera:
   m_GameObject: {fileID: 4607536591165122676}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -59,7 +59,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 897.3
+  far clip plane: 10
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 4607536591165122676}
-  anim: {fileID: 4607536591742754990}
   footsteps:
   - {fileID: 4607536592162570176}
   - {fileID: 4607536592162570189}
@@ -1038,6 +1037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Steve_FPCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737935232781064868, guid: c356d39725bcc4ec0925ab50a3cf6a42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2116992314023859724, guid: c356d39725bcc4ec0925ab50a3cf6a42,
         type: 3}

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caa88448b281abf4b99025bb30fe4535, type: 3}
-  m_Name: 2
+  m_Name: OozeyRed
   m_EditorClassIdentifier: 
   type: 1
-  creatureType: 1
-  mazeObject: 1
-  prefab: {fileID: 1326630252266814543, guid: cf167a3c1a62cbc4ba915167782f9d37, type: 3}
+  creatureType: 4
+  mazeObject: 0
+  prefab: {fileID: 7488720192485832668, guid: 7b34864a37f99ff4fb26bcfa04096353, type: 3}

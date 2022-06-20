@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Maze
 {
-    public class RoomBehaviour : MonoBehaviour
+    public class RoomBehaviour : MonoBehaviour, IEquatable<RoomBehaviour>
     {
         /*0 - up, 1 - down, 2 - right, 3 - left*/
         [SerializeField]private GameObject[] walls,doors;
@@ -49,6 +49,41 @@ namespace Maze
         public void UpdateRoomTest()
         {
             UpdateRoom(testStatuses);
+        }
+
+        public bool Equals(RoomBehaviour other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return base.Equals(other) && Equals(walls, other.walls) && Equals(doors, other.doors) && Equals(testStatuses, other.testStatuses) && _position.Equals(other._position) && Equals(Locator, other.Locator);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((RoomBehaviour) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), walls, doors, testStatuses, _position, Locator);
+        }
+
+        public static bool operator ==(RoomBehaviour first, RoomBehaviour second)
+        {
+            if (first is null)
+            {
+                return second is null;
+            }
+            
+            return first.Equals(second);
+        }
+
+        public static bool operator !=(RoomBehaviour first, RoomBehaviour second)
+        {
+            return !(first == second);
         }
     }
 }

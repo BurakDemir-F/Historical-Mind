@@ -1,6 +1,7 @@
 using System.Collections;
 using Maze;
 using MazeWorld;
+using MazeWorld.Dedalus;
 using UnityEngine;
 
 namespace Managers
@@ -18,6 +19,7 @@ namespace Managers
 
             var wait = new WaitForEndOfFrame();
             yield return CreatureSpawner.Instance.PerformCor(waitStep, wait);
+            yield return DedalusBoxSpawner.Instance.PerformCor(waitStep, wait);
 
             var startCell = MazeGenerator.Instance.StartCell;
             var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);

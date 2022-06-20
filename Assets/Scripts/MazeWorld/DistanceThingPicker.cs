@@ -7,13 +7,13 @@ using Random = UnityEngine.Random;
 
 namespace MazeWorld
 {
-    // this class gets creature types based on its distance value to goal cell
+    // this class gets and returns objects based on its distance ratio value to goal cell
     public class DistanceThingPicker<T> where T: IHasDistanceValue
     {
-        private readonly CreatureDistanceDistribution _distanceDistribution;
+        private readonly DistanceDistribution _distanceDistribution;
         private readonly List<T> _things;
 
-        public DistanceThingPicker(CreatureDistanceDistribution distanceDistribution, List<T> things)
+        public DistanceThingPicker(DistanceDistribution distanceDistribution, List<T> things)
         {
             _distanceDistribution = distanceDistribution;
             _things = things;

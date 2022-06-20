@@ -15,7 +15,7 @@ namespace MazeWorld
     public class CreatureSpawner : Singleton<CreatureSpawner>, IRunOnFrames
     {
         [SerializeField] private CreatureLivingThingDict creatureDictionary;
-        [SerializeField] private CreatureDistanceDistribution distanceDistribution;
+        [SerializeField] private DistanceDistribution distanceDistribution;
         private List<MazeWorldCreatures> _creatureKeys = new ();
         private DistanceThingPicker<LivingThing> _typeFinder;
 
@@ -46,7 +46,9 @@ namespace MazeWorld
                 var roomData = (MazeInfo.GetRoomData(room.Value));
                 if (!roomData.IsBomb) continue;
                 var distanceToGoal = MazeInfo.GetDistanceToGoalCell(roomData.Cell);
-                CreateMonster(GetCreatureType(distanceToGoal),room.Value.Locator.GetPosition(),room.Value);
+                var creatureType = GetCreatureType(distanceToGoal);
+                roomData.AddCreature(creatureType);
+                CreateMonster(creatureType,room.Value.Locator.GetPosition(),room.Value);
             }
         }
 

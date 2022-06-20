@@ -3,107 +3,110 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[Serializable]
-public class TdList<T> : IEnumerable<T>
+namespace Algorithms
 {
-    private readonly List<T> _list;
-    private int _width, _height;
-
-    public TdList(int x,int y, T defaultValue)
+    [Serializable]
+    public class TdList<T> : IEnumerable<T>
     {
-        _list = Enumerable.Repeat(defaultValue, x * y).ToList();
-        _width = x;
-        _height = y;
-    }
+        private readonly List<T> _list;
+        private int _width, _height;
 
-    public TdList(List<T> oDList, int x, int y)
-    {
-        _list = oDList;
-        _width = x;
-        _height = y;
-    }
-
-    public T this[int x, int y]
-    {
-        get
+        public TdList(int x,int y, T defaultValue)
         {
-            var count = _list.Count;
-            if (x * y >= count && count > 0)
+            _list = Enumerable.Repeat(defaultValue, x * y).ToList();
+            _width = x;
+            _height = y;
+        }
+
+        public TdList(List<T> oDList, int x, int y)
+        {
+            _list = oDList;
+            _width = x;
+            _height = y;
+        }
+
+        public T this[int x, int y]
+        {
+            get
             {
-                throw new ArgumentOutOfRangeException($"x value: {x}, y value: {y}, index value: {GetIndex(x,y, _width)}");
-            }
+                var count = _list.Count;
+                if (x * y >= count && count > 0)
+                {
+                    throw new ArgumentOutOfRangeException($"x value: {x}, y value: {y}, index value: {GetIndex(x,y, _width)}");
+                }
             
-            return _list[GetIndex(x, y, _width)];
-        }
-        set
-        {
-            var count = _list.Count;
-            if (x * y >= count && count > 0)
-            {
-                throw new ArgumentOutOfRangeException($"x value: {x}, y value: {y}, index value: {GetIndex(x,y, _width)}");
+                return _list[GetIndex(x, y, _width)];
             }
+            set
+            {
+                var count = _list.Count;
+                if (x * y >= count && count > 0)
+                {
+                    throw new ArgumentOutOfRangeException($"x value: {x}, y value: {y}, index value: {GetIndex(x,y, _width)}");
+                }
 
-            _list[GetIndex(x, y, _width)] = value;
+                _list[GetIndex(x, y, _width)] = value;
+            }
         }
-    }
 
-    public List<T> GetOdList()
-    {
-        return _list;
-    }
-    
-    public IEnumerator<T> GetEnumerator()
-    {
-        foreach (var item in _list)
+        public List<T> GetOdList()
         {
-            yield return item;
+            return _list;
         }
-    }
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach (var item in _list)
+            {
+                yield return item;
+            }
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-    public void DoAll(Action<T> doAll)
-    {
-        if(doAll == null) return;
+        public void DoAll(Action<T> doAll)
+        {
+            if(doAll == null) return;
         
-        for (var x = 0; x < _width; x++)
-        {
-            for (var  y = 0; y < _height; y++)
+            for (var x = 0; x < _width; x++)
             {
-                doAll(this[x,y]);
+                for (var  y = 0; y < _height; y++)
+                {
+                    doAll(this[x,y]);
+                }
             }
         }
-    }
     
-    public void SetAllValues(T value)
-    {
-        for (var x = 0; x < _width; x++)
+        public void SetAllValues(T value)
         {
-            for (var  y = 0; y < _height; y++)
+            for (var x = 0; x < _width; x++)
             {
-                this[x, y] = value;
+                for (var  y = 0; y < _height; y++)
+                {
+                    this[x, y] = value;
+                }
             }
         }
-    }
-    public bool Contains(T item)
-    {
-        return _list.Contains(item);
-    }
+        public bool Contains(T item)
+        {
+            return _list.Contains(item);
+        }
 
-    public void AddItem(T item)
-    {
-        _list.Add(item);
-    }
+        public void AddItem(T item)
+        {
+            _list.Add(item);
+        }
 
-    public void RemoveItem(T item)
-    {
-        _list.Remove(item);
-    }
+        public void RemoveItem(T item)
+        {
+            _list.Remove(item);
+        }
     
-    public static int GetIndex(int x, int y, int width)
-    {
-        return y * width + x;
+        public static int GetIndex(int x, int y, int width)
+        {
+            return y * width + x;
+        }
     }
 }

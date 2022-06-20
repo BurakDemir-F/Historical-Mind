@@ -6,7 +6,7 @@ using UnityEngine;
 public class FPController : MonoBehaviour
 {
     public GameObject cam;
-    public Animator anim;
+    //public Animator anim;
     public AudioSource[] footsteps;
     public AudioSource jump;
     public AudioSource land;
@@ -42,34 +42,34 @@ public class FPController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-            anim.SetBool("arm", !anim.GetBool("arm"));
+        // if (Input.GetKeyDown(KeyCode.F))
+        //     anim.SetBool("arm", !anim.GetBool("arm"));
 
-        if (Mathf.Abs(x) > 0 || Mathf.Abs(z) > 0)
-        {
-            if (!anim.GetBool("walking"))
-            {
-                anim.SetBool("walking", true);
-                InvokeRepeating("PlayFootStepAudio", 0, 0.4f);
-            }
-        }
-        else if (anim.GetBool("walking"))
-        {
-            anim.SetBool("walking", false);
-            CancelInvoke("PlayFootStepAudio");
-            playingWalking = false;
-        }
+        // if (Mathf.Abs(x) > 0 || Mathf.Abs(z) > 0)
+        // {
+        //     if (!anim.GetBool("walking"))
+        //     {
+        //         anim.SetBool("walking", true);
+        //         InvokeRepeating("PlayFootStepAudio", 0, 0.4f);
+        //     }
+        // }
+        // else if (anim.GetBool("walking"))
+        // {
+        //     anim.SetBool("walking", false);
+        //     CancelInvoke("PlayFootStepAudio");
+        //     playingWalking = false;
+        // }
 
         bool grounded = IsGrounded();
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             rb.AddForce(0, 300, 0);
             jump.Play();
-            if (anim.GetBool("walking"))
-            {
-                CancelInvoke("PlayFootStepAudio");
-                playingWalking = false;
-            }
+            // if (anim.GetBool("walking"))
+            // {
+            //     CancelInvoke("PlayFootStepAudio");
+            //     playingWalking = false;
+            // }
         }
         else if (!previouslyGrounded && grounded)
         {
@@ -139,16 +139,16 @@ public class FPController : MonoBehaviour
         return false;
     }
 
-    void OnCollisionEnter(Collision col)
-    {
-       if (IsGrounded())
-       {
-            if (anim.GetBool("walking") && !playingWalking)
-            {
-                InvokeRepeating("PlayFootStepAudio", 0, 0.4f);
-            }
-       }
-    }
+    // void OnCollisionEnter(Collision col)
+    // {
+    //    if (IsGrounded())
+    //    {
+    //         if (anim.GetBool("walking") && !playingWalking)
+    //         {
+    //             InvokeRepeating("PlayFootStepAudio", 0, 0.4f);
+    //         }
+    //    }
+    // }
 
     public void SetCursorLock(bool value)
     {

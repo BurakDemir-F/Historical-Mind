@@ -13,8 +13,9 @@ namespace ScriptableObjects
         [SerializeField] private int power;
         [SerializeField] private int damage;
         [SerializeField] private GameObject flesh;
-        [Tooltip("Danger value means how much closer to the goal room, " +
-                 "when getting closer to the goal room, creatures must be more powerful.")]
+        [Tooltip("Distance value means how much closer to the goal room, " +
+                 "when getting closer to the goal room, creatures must be more powerful." +
+                 " Less Distance value more harmful")]
         [SerializeField] private float distanceValue;
 
         public MazeWorldCreatures Kind => kind;
