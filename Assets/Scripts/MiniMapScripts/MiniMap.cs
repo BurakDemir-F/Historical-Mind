@@ -16,12 +16,12 @@ namespace MiniMapScripts
         private void Start()
         {
             _miniMapCells = new Dictionary<Vector2Int, MiniMapCell>();
-            RoomEnterBehaviour.ONRoomEntered += OnRoomEntered;
+            RoomEnterBehaviour.OnRoomEntered += OnRoomEntered;
         }
 
         private void OnDestroy()
         {
-            RoomEnterBehaviour.ONRoomEntered -= OnRoomEntered;
+            RoomEnterBehaviour.OnRoomEntered -= OnRoomEntered;
         }
 
         private void OnRoomEntered(RoomBehaviour room, Collider other, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)

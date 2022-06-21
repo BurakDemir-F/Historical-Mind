@@ -12,20 +12,21 @@ namespace MazeWorld.Npc
         private bool _isPlayerInRoom = false;
         private void Start()
         {
-            RoomEnterBehaviour.ONDangerousRoom += PlayerOnDangerousRoomHandler;
+            RoomEnterBehaviour.OnRoomEnteredLight += PlayerOnRoomEnteredLightHandler;
         }
 
         private void OnDestroy()
         {
-            RoomEnterBehaviour.ONDangerousRoom -= PlayerOnDangerousRoomHandler;
+            RoomEnterBehaviour.OnRoomEnteredLight -= PlayerOnRoomEnteredLightHandler;
         }
 
-        private void PlayerOnDangerousRoomHandler(RoomBehaviour room, Collider other)
+        private void PlayerOnRoomEnteredLightHandler(RoomBehaviour room, Collider other)
         {
             if(room != locatedRoom && _isPlayerInRoom)
             {
                 _isPlayerInRoom = false;
                 OnPlayerExitRoom?.Invoke();
+                print("Player left room");
                 return;
             }
             

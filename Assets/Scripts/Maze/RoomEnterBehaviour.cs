@@ -7,15 +7,15 @@ namespace Maze
     {
         [SerializeField] private RoomBehaviour thisRoomBehaviour;
         
-        public static event Action<RoomBehaviour,Collider,RoomBehaviour, RoomBehaviour, RoomBehaviour, RoomBehaviour> ONRoomEntered;
-        public static event Action<RoomBehaviour, Collider> ONDangerousRoom;
+        public static event Action<RoomBehaviour,Collider,RoomBehaviour, RoomBehaviour, RoomBehaviour, RoomBehaviour> OnRoomEntered;
+        public static event Action<RoomBehaviour, Collider> OnRoomEnteredLight;
         private void Start()
         {
-            ONRoomEntered += RoomEnterHandler;
+            OnRoomEntered += RoomEnterHandler;
         }
         private void OnDestroy()
         {
-            ONRoomEntered -= RoomEnterHandler;
+            OnRoomEntered -= RoomEnterHandler;
         }
 
         private void RoomEnterHandler(RoomBehaviour currentRoom, Collider other, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
@@ -43,15 +43,14 @@ namespace Maze
                 MazeInfo.AddActiveRoom(room);
             }
             
-            var roomData = MazeInfo.GetRoomData(currentRoom);
-            if(roomData.IsBomb) ONDangerousRoom?.Invoke(currentRoom,other);
+            OnRoomEnteredLight?.Invoke(currentRoom,other);
         }
         
         public void OnTriggerEnter(Collider other)
         {
             var position = thisRoomBehaviour.GetRoomPosition();
             
-            ONRoomEntered?.Invoke(thisRoomBehaviour,other,MazeInfo.GetUpNeighbor(position), MazeInfo.GetDownNeighbor(position),
+            OnRoomEntered?.Invoke(thisRoomBehaviour,other,MazeInfo.GetUpNeighbor(position), MazeInfo.GetDownNeighbor(position),
                 MazeInfo.GetRightNeighbor(position), MazeInfo.GetLeftNeighbor(position));
         }
     }

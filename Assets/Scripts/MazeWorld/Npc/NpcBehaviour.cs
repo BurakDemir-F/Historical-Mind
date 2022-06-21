@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Maze;
 using ScriptableObjects;
 using UnityEngine;
@@ -18,52 +19,62 @@ namespace MazeWorld.Npc
         public event Action OnPlayerEscape;
 
         private bool _isInRange = false;
+        private Vector3 _startPos;
         
         private void Start()
         {
             SetData();
             roomOperationsBehaviour.OnPlayerRoom += PlayerEnterRoomHandler;
             roomOperationsBehaviour.OnPlayerExitRoom += PlayerExitRoomHandler;
-            OnAttackRange += OnAttackRangeHandler;
         }
 
         private void OnDestroy()
         {
             roomOperationsBehaviour.OnPlayerRoom -= PlayerEnterRoomHandler;
             roomOperationsBehaviour.OnPlayerExitRoom -= PlayerExitRoomHandler;
-            OnAttackRange -= OnAttackRangeHandler;
         }
 
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
 
         private void PlayerEnterRoomHandler()
         {
             OnChaseRange?.Invoke();
             _isInRange = true;
+            StopAllCoroutines();
         }
 
         private void PlayerExitRoomHandler()
         {
             OnPlayerEscape?.Invoke();
             _isInRange = false;
+            StartCoroutine(MoveToTarget(_startPos));
         }
 
         private void Update()
         {
             if(!_isInRange) return;
-
+            
             var targetPos = GetTargetPos();
             var myPos = transform.position;
             var distanceVec = targetPos - myPos;
             var distanceLength = distanceVec.magnitude;
-
+        
             if (distanceLength < attackRange) OnAttackRange?.Invoke();
-            else MoveTowardsPlayer(targetPos,distanceVec);
+            else MoveTowardsTarget(targetPos);
         }
 
-        private void MoveTowardsPlayer(Vector3 targetPos,Vector3 distanceVec)
+        private void MoveTowardsTarget(Vector3 targetPos)
         {
+            var myPos = transform.position;
+            var positionY = myPos.y;
+            targetPos = new Vector3(targetPos.x, positionY, targetPos.z);
+            var distanceVec = targetPos - myPos;
+            
+            transform.Translate(distanceVec.normalized * speed * Time.deltaTime, Space.World);
             transform.LookAt(targetPos);
-            transform.Translate(distanceVec * speed * Time.deltaTime);
         }
 
         private Vector3 GetTargetPos()
@@ -72,12 +83,23 @@ namespace MazeWorld.Npc
             return PlayerInfo.PlayerPosition;
         }
 
-        public void SetData()
+        private void SetData()
         {
             attackRange = npcData.AttackRange;
             speed = npcData.Speed;
+            _startPos = transform.position;
         }
 
+        private IEnumerator MoveToTarget(Vector3 targetPos)
+        {
+            var wait = new WaitForEndOfFrame();
+            while ((targetPos - transform.position).magnitude > .1f)
+            {
+                MoveTowardsTarget(targetPos);
+                yield return wait;
+            }
+        }
+        
         #region Test
 
         private void OnAttackRangeHandler()
