@@ -12,12 +12,12 @@ public class TextInfoTest : MonoBehaviour
 
     private void OnEnable()
     {
-        RoomEnterBehaviour.onRoomEntered += RoomEnteredHandler;
+        RoomEnterBehaviour.ONRoomEntered += RoomEnteredHandler;
     }
 
     private void OnDisable()
     {
-        RoomEnterBehaviour.onRoomEntered += RoomEnteredHandler;
+        RoomEnterBehaviour.ONRoomEntered += RoomEnteredHandler;
     }
 
     private void RoomEnteredHandler(RoomBehaviour room, Collider col, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)

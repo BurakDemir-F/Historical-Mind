@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Algorithms;
 using Maze;
+using MazeWorld.Npc;
 using Patterns;
 using ScriptableObjects;
 using UnityEngine;
@@ -48,7 +49,9 @@ namespace MazeWorld
                 var distanceToGoal = MazeInfo.GetDistanceToGoalCell(roomData.Cell);
                 var creatureType = GetCreatureType(distanceToGoal);
                 roomData.AddCreature(creatureType);
-                CreateMonster(creatureType,room.Value.Locator.GetPosition(),room.Value);
+                var newCreature = CreateMonster(creatureType,room.Value.Locator.GetPosition(),room.Value);
+                if(newCreature == null) continue;
+                newCreature.GetComponent<NpcRoomOperationsBehaviour>().SetRoom(room.Value);
             }
         }
 
@@ -67,13 +70,15 @@ namespace MazeWorld
             return creatureKeys[random];
         }
         
-        private void CreateMonster(MazeWorldCreatures creatureType, Vector3 pos,RoomBehaviour room)
+        private GameObject CreateMonster(MazeWorldCreatures creatureType, Vector3 pos,RoomBehaviour room)
         {
-            if(creatureType == MazeWorldCreatures.None) return;
+            if(creatureType == MazeWorldCreatures.None) return null;
             
             var creature = Instantiate(creatureDictionary[creatureType].Flesh, room.transform);
             creature.transform.position = pos;
             creature.transform.SetParent(room.transform);
+
+            return creature;
         }
 
         private List<MazeWorldCreatures> GetCreatureKeyList()

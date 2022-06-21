@@ -10,18 +10,18 @@ namespace MazeWorld.Dedalus
         [SerializeField] private List<DedalusEye> _dedalusEyes;
         private void Start()
         {
-            RoomEnterBehaviour.onRoomEntered += RoomEnteredHandler;
+            RoomEnterBehaviour.ONRoomEntered += RoomEnteredHandler;
             roomObject.gameObject.SetActive(false);
         }
 
         private void OnDestroy()
         {
-            RoomEnterBehaviour.onRoomEntered -= RoomEnteredHandler;
+            RoomEnterBehaviour.ONRoomEntered -= RoomEnteredHandler;
         }
 
         private void RoomEnteredHandler(RoomBehaviour room, Collider col, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
         {
-            if (!locatedRoom ==room) return;
+            if (locatedRoom !=room) return;
             roomObject.gameObject.SetActive(true);
             UpdateBox(up,down,right,left);
         }

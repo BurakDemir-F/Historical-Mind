@@ -18,11 +18,16 @@ namespace ScriptableObjects
                  " Less Distance value more harmful")]
         [SerializeField] private float distanceValue;
 
+        [SerializeField] private float speed;
+        [SerializeField] private float attackRange;
+
         public MazeWorldCreatures Kind => kind;
         public int Health => health;
         public int Power => power;
         public int Damage => damage;
         public GameObject Flesh => flesh;
         public float DistanceValue => distanceValue;
+        public float Speed => speed;
+        public float AttackRange => attackRange;
     }
 }

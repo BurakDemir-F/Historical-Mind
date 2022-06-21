@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b728eaa168f6b244e845d25579db53c2, type: 2}
+  - {fileID: 2100000, guid: df07378c6a06a3243b7529ab2806199d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,6 +92,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7829112102594407782}
+  - component: {fileID: 3444494703814659430}
+  - component: {fileID: 3357264966798946697}
   m_Layer: 0
   m_Name: Oozey
   m_TagString: Untagged
@@ -115,3 +117,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3444494703814659430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6141281b7397f3840a332ef862e86f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomOperationsBehaviour: {fileID: 3357264966798946697}
+  npcData: {fileID: 11400000, guid: 49133c91a46eef34c99848bad71ebb0c, type: 2}
+  attackRange: 0
+  speed: 0
+  target: {fileID: 0}
+--- !u!114 &3357264966798946697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41324dd63a27f0e4a915994b063c38c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

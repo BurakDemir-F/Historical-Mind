@@ -18,3 +18,5 @@ MonoBehaviour:
   damage: 0
   flesh: {fileID: 7488720192485832668, guid: c622917c9ff25764280eb7d4c248c391, type: 3}
   distanceValue: 0.5
+  speed: 1.5
+  attackRange: 1.5

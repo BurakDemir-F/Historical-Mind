@@ -38,18 +38,18 @@ namespace Maze
         
         public void GenerateBackTracking()
         {
-            var startTime = Time.realtimeSinceStartup;
+            //var startTime = Time.realtimeSinceStartup;
             _depthFirstMaze = new DepthFirstMaze(_size.x, _size.y);
             var backTracing = new BackTracing(_size.x, _size.y,_depthFirstMaze);
             backTracing.GenerateCellsBasedOnMaze();
             _cells = backTracing.GetCells();
-            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
-            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
+            //print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
+            //print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
         public IEnumerator SetBombs()
         {
-            var startTime = Time.realtimeSinceStartup;
+            //var startTime = Time.realtimeSinceStartup;
             var restrictedCells = new List<Cell>();
 
             for (var i = 0; i < 3; i++)
@@ -83,13 +83,13 @@ namespace Maze
                 GoalCellPath = goalFinder.FindCellsFromPositions(aStar.GetPathCells());
             }
 
-            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - set path and bombs");
-            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
+            //print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - set path and bombs");
+            //print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
         public IEnumerator GenerateMaze()
         {
-            var startTime = Time.realtimeSinceStartup;
+            //var startTime = Time.realtimeSinceStartup;
 
             var counter = 0;
             var waitForEndOfFrame = new WaitForEndOfFrame();
@@ -110,10 +110,10 @@ namespace Maze
                 if (++counter % 10 == 0) yield return waitForEndOfFrame;
             }
 
-            DebugRoomDataListInfo();
+            //DebugRoomDataListInfo();
             
-            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate maze");
-            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
+            //print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate maze");
+            //print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
         private void DebugRoomDataListInfo()
@@ -145,6 +145,7 @@ namespace Maze
                 var roomPosition = mazeRoom.transform.position;
                 player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
                 mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(player.GetComponent<Collider>());
+                PlayerInfo.SetPlayer(player);
             }
         }
 
