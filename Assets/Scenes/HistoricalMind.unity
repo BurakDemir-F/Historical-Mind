@@ -155,11 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDictionary:
     isModifiable: 0
-    keys: 030000000400000005000000
+    keys: 03000000040000000500000006000000
     values:
     - {fileID: 11400000, guid: 49133c91a46eef34c99848bad71ebb0c, type: 2}
     - {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
     - {fileID: 11400000, guid: a413c476cd12e51428ecaae9d2939690, type: 2}
+    - {fileID: 11400000, guid: 7dc78189f154abf45900cdf2a2b28a2f, type: 2}
   distanceDistribution: {fileID: 11400000, guid: e8f0af462b7df81448922fc8d30e3086,
     type: 2}
 --- !u!4 &136721072

@@ -17,6 +17,6 @@ MonoBehaviour:
   power: 40
   damage: 25
   flesh: {fileID: 2611590950733253000, guid: 2453e430fd8d76042821044dace78739, type: 3}
-  distanceValue: 0.8
+  distanceValue: 0.5
   speed: 2
   attackRange: 2.5

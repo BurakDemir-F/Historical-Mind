@@ -24,6 +24,7 @@ namespace Managers
             var startCell = MazeGenerator.Instance.StartCell;
             var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);
             StartCoroutine(MazeGenerator.Instance.CreateTestPlayer(startVector));
+            TestAudioPlayer.Instance.PlayMusic();
         }
     }
 }
