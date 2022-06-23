@@ -59,7 +59,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 10
+  far clip plane: 30
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -264,7 +264,7 @@ MonoBehaviour:
   - {fileID: 4607536592162570179}
   jump: {fileID: 4607536592162570191}
   land: {fileID: 4607536592162570188}
-  speed: 0.05
+  speed: 0.15
 --- !u!82 &4607536592162570176
 AudioSource:
   m_ObjectHideFlags: 0
@@ -870,8 +870,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3384902021239641952, guid: 54d17edd103be4a48bd184591150aec5,
         type: 3}
+      propertyPath: m_Range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384902021239641952, guid: 54d17edd103be4a48bd184591150aec5,
+        type: 3}
       propertyPath: m_Intensity
-      value: 0.8
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384902021239641952, guid: 54d17edd103be4a48bd184591150aec5,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384902021239641952, guid: 54d17edd103be4a48bd184591150aec5,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 3842545159747688878, guid: 54d17edd103be4a48bd184591150aec5,
         type: 3}

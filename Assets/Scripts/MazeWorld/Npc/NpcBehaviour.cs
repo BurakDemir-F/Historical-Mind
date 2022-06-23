@@ -3,8 +3,7 @@ using System.Collections;
 using Maze;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
-
+using AYellowpaper;
 namespace MazeWorld.Npc
 {
     public class NpcBehaviour : MonoBehaviour
@@ -14,6 +13,7 @@ namespace MazeWorld.Npc
         [SerializeField] private float attackRange;
         [SerializeField] private float speed;
         [SerializeField] private Transform target;
+        [SerializeField] private InterfaceReference<IGetTargetTransform> targetPosGetter;
         public event Action OnAttackRange;
         public event Action OnChaseRange;
         public event Action OnPlayerEscape;
@@ -62,11 +62,16 @@ namespace MazeWorld.Npc
             var distanceVec = targetPos - myPos;
             var distanceLength = distanceVec.magnitude;
         
-            if (distanceLength < attackRange) OnAttackRange?.Invoke();
-            else MoveTowardsTarget(targetPos);
+            if (distanceLength < attackRange) 
+                OnAttackRange?.Invoke();
+            else
+            {
+                OnChaseRange?.Invoke();
+                MoveTowardsTarget(targetPos);
+            }
         }
 
-        private void MoveTowardsTarget(Vector3 targetPos)
+        protected virtual void MoveTowardsTarget(Vector3 targetPos)
         {
             var myPos = transform.position;
             var positionY = myPos.y;
@@ -79,8 +84,8 @@ namespace MazeWorld.Npc
 
         private Vector3 GetTargetPos()
         {
-            target = PlayerInfo.PlayerTransform;
-            return PlayerInfo.PlayerPosition;
+            target = targetPosGetter.Value.GetTarget();
+            return target.position;
         }
 
         private void SetData()

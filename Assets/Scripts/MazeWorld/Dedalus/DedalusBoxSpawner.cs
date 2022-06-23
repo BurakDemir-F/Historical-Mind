@@ -31,7 +31,7 @@ namespace MazeWorld.Dedalus
 
         private DedalusBox SpawnBox(Vector3 position, Transform parent)
         {
-            var newDedalusBox = Instantiate(dedalusBoxPrefab, parent);
+            var newDedalusBox = Instantiate(dedalusBoxPrefab, parent,true);
             newDedalusBox.transform.position = position;
             return newDedalusBox.GetComponent<DedalusBox>();
         }

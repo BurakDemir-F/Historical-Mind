@@ -36,5 +36,17 @@ namespace MazeWorld.Npc
             OnPlayerRoom?.Invoke();
             _isPlayerInRoom = true;
         }
+
+        [ContextMenu("Room entered.")]
+        private void TestOnRoomEnter()
+        {
+            OnPlayerRoom?.Invoke();
+        }
+
+        [ContextMenu("Room exited.")]
+        private void TestRoomExit()
+        {
+            OnPlayerExitRoom?.Invoke();
+        }
     }
 }

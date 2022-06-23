@@ -155,10 +155,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDictionary:
     isModifiable: 0
-    keys: 0300000004000000
+    keys: 030000000400000005000000
     values:
     - {fileID: 11400000, guid: 49133c91a46eef34c99848bad71ebb0c, type: 2}
     - {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
+    - {fileID: 11400000, guid: a413c476cd12e51428ecaae9d2939690, type: 2}
   distanceDistribution: {fileID: 11400000, guid: e8f0af462b7df81448922fc8d30e3086,
     type: 2}
 --- !u!4 &136721072
@@ -906,7 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeRoom: {fileID: 1918704450760230868, guid: 788e681312ed4ec48a7d58f277f36770,
     type: 3}
-  roomOffset: 6
+  roomOffset: 18
   mazeData: {fileID: 11400000, guid: 645f45506270fcf47896b7ffa2268b25, type: 2}
   mazeRoot: {fileID: 527313462}
   testPlayer: {fileID: 4607536592162570171, guid: 7f3c3dceeffb94f85bc6150d13ac6a09,

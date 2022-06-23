@@ -92,10 +92,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7829112102594407782}
+  - component: {fileID: 6004282151798527485}
   - component: {fileID: 4222079013589360394}
+  - component: {fileID: 8447747925147484682}
   - component: {fileID: 374087167712572270}
   - component: {fileID: 5203627573310060928}
   - component: {fileID: 123054312711220419}
+  - component: {fileID: 4267868453046993377}
   m_Layer: 0
   m_Name: Oozey Red
   m_TagString: Untagged
@@ -119,6 +122,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6004282151798527485
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f53a9a85122fca408984e8b611bb6b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &4222079013589360394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +159,22 @@ MonoBehaviour:
   attackRange: 0
   speed: 0
   target: {fileID: 0}
+  targetPosGetter:
+    _underlyingValue: {fileID: 4267868453046993377}
+--- !u!114 &8447747925147484682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e717de948c7f5714db2cc56f6e8279ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcBehaviour: {fileID: 4222079013589360394}
+  animator: {fileID: 6004282151798527485}
 --- !u!114 &374087167712572270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,3 +216,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4267868453046993377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57241a77dcaa471dbf3aae57336ff580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -74,7 +74,7 @@ namespace MazeWorld
         {
             if(creatureType == MazeWorldCreatures.None) return null;
             
-            var creature = Instantiate(creatureDictionary[creatureType].Flesh, room.transform);
+            var creature = Instantiate(creatureDictionary[creatureType].Flesh, room.transform,true);
             creature.transform.position = pos;
             creature.transform.SetParent(room.transform);
 
