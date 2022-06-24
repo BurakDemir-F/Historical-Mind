@@ -9,7 +9,7 @@ namespace MazeWorld.Npc
     {
         [SerializeField] private NpcBehaviour npcBehaviour;
         [SerializeField] private Animator animator;
-        private bool _isAttacking = false;
+        [SerializeField] private NpcHealthBehaviour healthBehaviour;
         private int _attack = Motion.Attack.ToInt();
         private static readonly int State = Animator.StringToHash("State");
 
@@ -18,6 +18,7 @@ namespace MazeWorld.Npc
             npcBehaviour.OnAttackRange += OnAttackRangeHandler;
             npcBehaviour.OnChaseRange += OnChaseRangeHandler;
             npcBehaviour.OnPlayerEscape += OnPlayerEscapeHandler;
+            healthBehaviour.onNpcDie += NpcDieHandler;
         }
 
         private void OnDestroy()
@@ -25,6 +26,7 @@ namespace MazeWorld.Npc
             npcBehaviour.OnAttackRange -= OnAttackRangeHandler;
             npcBehaviour.OnChaseRange -= OnChaseRangeHandler;
             npcBehaviour.OnPlayerEscape -= OnPlayerEscapeHandler;
+            healthBehaviour.onNpcDie -= NpcDieHandler;
         }
 
        // private void OnEnable() => animator.SetInteger(State,1); // unsolved mystery here.
@@ -42,6 +44,12 @@ namespace MazeWorld.Npc
         private void OnPlayerEscapeHandler()
         {
             animator.SetInteger(State,2);
+        }
+
+        private void NpcDieHandler()
+        {
+            //npc died.
+            print("npc died");
         }
     }
 

@@ -22,11 +22,11 @@ public class TextInfoTest : MonoBehaviour
 
     private void RoomEnteredHandler(RoomBehaviour room, Collider col, RoomBehaviour up,RoomBehaviour down,RoomBehaviour right, RoomBehaviour left)
     {
-        // if(MazeInfo.GetRoomData(room).IsBomb)
-        // {
-        //     SetText("you are dead");
-        //     return;
-        // }
+        if(MazeInfo.GetRoomData(room).IsBomb)
+        {
+            SetText("you are dead");
+            return;
+        }
 
         if (room.GetRoomPosition() == MazeGenerator.Instance.GoalCell.Position)
         {
@@ -34,17 +34,17 @@ public class TextInfoTest : MonoBehaviour
             return;
         }
 
-        // var neighbors = MazeInfo.GetNeighborRooms(room.GetRoomPosition());
-        // var counter = 0;
-        // foreach (var neighbor in neighbors)
-        // {
-        //     if (MazeInfo.GetRoomData(neighbor).IsBomb)
-        //     {
-        //         counter++;
-        //     }
-        // }
-        //
-        // SetText($"Dangerous room count: {counter}");
+        var neighbors = MazeInfo.GetNeighborRooms(room.GetRoomPosition());
+        var counter = 0;
+        foreach (var neighbor in neighbors)
+        {
+            if (MazeInfo.GetRoomData(neighbor).IsBomb)
+            {
+                counter++;
+            }
+        }
+        
+        SetText($"Dangerous room count: {counter}");
 
     }
 }
