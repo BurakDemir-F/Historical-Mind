@@ -144,9 +144,21 @@ namespace Maze
                 player = Instantiate(testPlayer);
                 var roomPosition = mazeRoom.transform.position;
                 player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
-                mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(player.GetComponent<Collider>());
-                PlayerInfo.SetPlayer(player);
+
+                var playerCollider = player.GetComponentInChildren<Collider>();
+                mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(playerCollider);
+                PlayerInfo.SetPlayer(playerCollider.gameObject);
             }
+        }
+
+        public void SpawnPlayer(RoomBehaviour room, GameObject spawnPlayer)
+        {
+            room.gameObject.SetActive(true);
+            var roomPosition = room.transform.position;
+            spawnPlayer.transform.position = new Vector3(roomPosition.x, roomPosition.y + 1, roomPosition.z);
+
+            var playerCollider = spawnPlayer.GetComponentInChildren<Collider>();
+            room.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(playerCollider);
         }
 
         private void PlayerWalking()

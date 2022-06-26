@@ -100,6 +100,8 @@ GameObject:
   - component: {fileID: 123054312711220419}
   - component: {fileID: 4267868453046993377}
   - component: {fileID: 1051174811294203851}
+  - component: {fileID: 8140610077786770571}
+  - component: {fileID: 8966138056105518839}
   m_Layer: 7
   m_Name: Oozey Red
   m_TagString: Untagged
@@ -133,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 7488720192485832668}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9f53a9a85122fca408984e8b611bb6b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 225fc5269d27c9f4e96e12068b087bec, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -162,6 +164,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetPosGetter:
     _underlyingValue: {fileID: 4267868453046993377}
+  motionBehaviour: {fileID: 8447747925147484682}
 --- !u!114 &8447747925147484682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +179,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcBehaviour: {fileID: 4222079013589360394}
   animator: {fileID: 6004282151798527485}
+  healthBehaviour: {fileID: 8140610077786770571}
+  npcInteractions: {fileID: 1051174811294203851}
+  isTakingDamage: 0
+  isAttacking: 0
 --- !u!114 &374087167712572270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +248,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3420e5f63ec2840965f0dfad0ccde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8140610077786770571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f925ea93ae11748a86a8b63ebaba20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcData: {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
+  interactions: {fileID: 1051174811294203851}
+--- !u!114 &8966138056105518839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488720192485832668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1221ac0bd8ba7438bc5e011c2319fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackTransform: {fileID: 7266175130937908286}
+  motionBehaviour: {fileID: 8447747925147484682}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackSphereRadius: 0.1
+  npcData: {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
+  npcCollider: {fileID: 5203627573310060928}

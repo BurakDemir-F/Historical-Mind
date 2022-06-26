@@ -29,11 +29,13 @@ namespace MazeWorld.Npc
         private void DamageHandler()
         {
             _healthSystem.Damage(npcData.Damage);
+            print("Npc damage!");
         }
 
         private void NpcDieHandler(object sender, EventArgs args)
         {
             onNpcDie?.Invoke();
+            print("Npc dead!!!");
         }
         
         

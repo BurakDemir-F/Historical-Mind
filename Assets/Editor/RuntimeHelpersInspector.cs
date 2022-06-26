@@ -43,6 +43,18 @@ namespace Utilities
             {
                 _helpers.ShowStartCell();
             }
+            
+            
+            if (GUILayout.Button("Send Player To Guardian"))
+            {
+                _helpers.SendPlayerToGuardian();
+            }
+            
+            
+            if (GUILayout.Button("Send Player To Goblin"))
+            {
+                _helpers.SendPlayerToGoblin();
+            }
         }
     }
 }

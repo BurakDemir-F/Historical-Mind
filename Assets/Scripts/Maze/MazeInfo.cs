@@ -58,7 +58,12 @@ namespace Maze
         {
             return _roomDatas[roomBehaviour];
         }
-        
+
+        public static Dictionary<RoomBehaviour,RoomData> GetAllRoomData()
+        {
+            return _roomDatas;
+        }
+
         public static Dictionary<Vector2Int,RoomBehaviour> GetRooms()
         {
             return _rooms;

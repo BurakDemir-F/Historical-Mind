@@ -9,7 +9,9 @@ public class TestTargetGetter : MonoBehaviour,IGetTargetTransform
     public Transform GetTarget()
     {
         if (player != null) return player;
-        player = GameObject.FindWithTag("Player").transform;
+        var playerObject = GameObject.FindWithTag("Player");
+        var col = playerObject.GetComponentInChildren<Collider>();
+        player = col.transform;
         return player;
 
     }

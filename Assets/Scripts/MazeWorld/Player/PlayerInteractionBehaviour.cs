@@ -14,13 +14,13 @@ namespace MazeWorld.Player
         {
             _rayCaster = new RayCaster(Camera.main, interactionMask);
             _rayCaster.OnHitInteractable += HitInteractableHandler;
-            input.onInteractionHappen += InteractionHandler;
+            input.OnInteractionHappen += InteractionHandler;
         }
 
         private void OnDestroy()
         {
             _rayCaster.OnHitInteractable -= HitInteractableHandler;
-            input.onInteractionHappen -= InteractionHandler;
+            input.OnInteractionHappen -= InteractionHandler;
         }
 
         // if ray hits any related layer of object this function will be called.

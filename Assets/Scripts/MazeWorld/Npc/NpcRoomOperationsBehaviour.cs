@@ -37,6 +37,8 @@ namespace MazeWorld.Npc
             _isPlayerInRoom = true;
         }
 
+        #region test
+        
         [ContextMenu("Room entered.")]
         private void TestOnRoomEnter()
         {
@@ -48,5 +50,21 @@ namespace MazeWorld.Npc
         {
             OnPlayerExitRoom?.Invoke();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                TestOnRoomEnter();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                TestRoomExit();
+            }
+        }
+
+        #endregion
+
     }
 }

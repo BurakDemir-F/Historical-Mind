@@ -686,6 +686,8 @@ GameObject:
   - component: {fileID: 7393926914482383812}
   - component: {fileID: 1508091710156152932}
   - component: {fileID: 941444194107845356}
+  - component: {fileID: 5300708285837198959}
+  - component: {fileID: 1987015330699625114}
   m_Layer: 7
   m_Name: MazeGuardian
   m_TagString: Untagged
@@ -720,7 +722,7 @@ Animator:
   m_GameObject: {fileID: 2611590950733253000}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 28876413e981fd84daffebeca2240392, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9f53a9a85122fca408984e8b611bb6b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 225fc5269d27c9f4e96e12068b087bec, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -749,6 +751,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetPosGetter:
     _underlyingValue: {fileID: 7393926914482383812}
+  motionBehaviour: {fileID: 82579766361182625}
 --- !u!114 &7031644324462137467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +778,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcBehaviour: {fileID: 130059854971841848}
   animator: {fileID: 8761120143349188936}
+  healthBehaviour: {fileID: 5300708285837198959}
+  npcInteractions: {fileID: 1508091710156152932}
+  isTakingDamage: 0
+  isAttacking: 0
 --- !u!114 &7393926914482383812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,6 +819,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.6336768, z: 0.57491964}
   m_Center: {x: 0, y: 0.92339456, z: 0.21254018}
+--- !u!114 &5300708285837198959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611590950733253000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f925ea93ae11748a86a8b63ebaba20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcData: {fileID: 11400000, guid: a413c476cd12e51428ecaae9d2939690, type: 2}
+  interactions: {fileID: 1508091710156152932}
+--- !u!114 &1987015330699625114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611590950733253000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1221ac0bd8ba7438bc5e011c2319fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackTransform: {fileID: 5112322210105513220}
+  motionBehaviour: {fileID: 82579766361182625}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackSphereRadius: 0.1
+  npcData: {fileID: 11400000, guid: a413c476cd12e51428ecaae9d2939690, type: 2}
+  npcCollider: {fileID: 941444194107845356}
 --- !u!1 &2779067360464706988
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: OozeyTheGreenMug
   m_EditorClassIdentifier: 
   kind: 3
-  health: 1000
+  health: 250
   power: 5
-  damage: 0
+  damage: 60
   flesh: {fileID: 7488720192485832668, guid: 146790458cffbde48a454bb65d560164, type: 3}
   distanceValue: 0.71
   speed: 1

@@ -48,6 +48,7 @@ namespace Maze
         
         public void OnTriggerEnter(Collider other)
         {
+            if(!other.CompareTag("Player")) return;
             var position = thisRoomBehaviour.GetRoomPosition();
             
             OnRoomEntered?.Invoke(thisRoomBehaviour,other,MazeInfo.GetUpNeighbor(position), MazeInfo.GetDownNeighbor(position),

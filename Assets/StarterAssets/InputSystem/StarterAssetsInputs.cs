@@ -22,7 +22,7 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		public event Action onInteractionHappen;
+		public event Action OnInteractionHappen;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -51,7 +51,7 @@ namespace StarterAssets
 		public void OnInteract(InputValue value)
 		{
 			if(value.isPressed)
-				onInteractionHappen?.Invoke();
+				OnInteractionHappen?.Invoke();
 		}
 #endif
 		

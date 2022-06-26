@@ -14,6 +14,7 @@ namespace MazeWorld.Npc
         [SerializeField] private float speed;
         [SerializeField] private Transform target;
         [SerializeField] private InterfaceReference<IGetTargetTransform> targetPosGetter;
+        [SerializeField] private NpcMotionBehaviour motionBehaviour;
         public event Action OnAttackRange;
         public event Action OnChaseRange;
         public event Action OnPlayerEscape;
@@ -57,13 +58,18 @@ namespace MazeWorld.Npc
         {
             if(!_isInRange) return;
             
+            if(motionBehaviour.isAttacking) TurnToPlayer(GetTargetPos());
+            if(motionBehaviour.isTakingDamage || motionBehaviour.isAttacking) return;
+
             var targetPos = GetTargetPos();
             var myPos = transform.position;
             var distanceVec = targetPos - myPos;
             var distanceLength = distanceVec.magnitude;
-        
-            if (distanceLength < attackRange) 
+            
+            if (distanceLength < attackRange)
+            {
                 OnAttackRange?.Invoke();
+            }
             else
             {
                 OnChaseRange?.Invoke();
@@ -79,6 +85,13 @@ namespace MazeWorld.Npc
             var distanceVec = targetPos - myPos;
             
             transform.Translate(distanceVec.normalized * speed * Time.deltaTime, Space.World);
+            TurnToPlayer(targetPos);
+        }
+
+        private void TurnToPlayer(Vector3 targetPos)
+        {
+            var posY = transform.position.y;
+            targetPos = new Vector3(targetPos.x, posY, targetPos.z);
             transform.LookAt(targetPos);
         }
 

@@ -1,5 +1,7 @@
+using System;
 using Algorithms;
 using Maze;
+using MazeWorld;
 using UnityEngine;
 
 namespace Utilities
@@ -15,7 +17,7 @@ namespace Utilities
             }
         }
 
-        public void ActivateAll()
+        public void ActivateAll()   
         {
             var rooms = MazeInfo.GetRooms().Values;
             foreach (var room in rooms)
@@ -90,6 +92,41 @@ namespace Utilities
             cube.transform.localScale = Vector3.one * 2;
             var _renderer = cube.GetComponent<Renderer>();
             _renderer.material.color = Color.red;
+        }
+
+        public void SendPlayerToGoblin()
+        {
+            SendPlayerToCreature(MazeWorldCreatures.MazeGoblin);
+        }
+        
+        public void SendPlayerToGuardian()
+        {
+            SendPlayerToCreature(MazeWorldCreatures.MazeGuardian);
+        }
+        
+        public void SendPlayerToCreature(MazeWorldCreatures creature)
+        {
+            var player = PlayerInfo.PlayerRoot;
+            var mazeData = MazeInfo.GetAllRoomData();
+            foreach (var roomData in mazeData)
+            {
+                var roomCreatures = roomData.Value.GetCreatures();
+                if (!roomCreatures.Contains(creature)) continue;
+                MazeGenerator.Instance.SpawnPlayer(roomData.Key,player);
+                return;
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                SendPlayerToGuardian();
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                SendPlayerToGoblin();
+            }
         }
     }
 }
