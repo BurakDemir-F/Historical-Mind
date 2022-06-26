@@ -66,7 +66,7 @@ namespace MazeWorld.Npc
             var distanceVec = targetPos - myPos;
             var distanceLength = distanceVec.magnitude;
             
-            if (distanceLength < attackRange)
+            if (distanceLength < npcData.AttackRange)
             {
                 OnAttackRange?.Invoke();
             }

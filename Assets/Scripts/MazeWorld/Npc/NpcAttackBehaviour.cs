@@ -54,7 +54,7 @@ namespace MazeWorld.Npc
 
             foreach (var hitCollider in hitColliders)
             {
-                if(npcCollider == hitCollider) break;
+                if(npcCollider == hitCollider) continue;
                 var damageObject = hitCollider.GetComponent<IDamageable>();
                 if (damageObject == null) continue;
                 damageObject.Damage(npcData.Power);

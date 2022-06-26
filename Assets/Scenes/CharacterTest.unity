@@ -606,10 +606,20 @@ PrefabInstance:
       propertyPath: targetPosGetter._underlyingValue
       value: 
       objectReference: {fileID: 1293449952}
+    - target: {fileID: 1987015330699625114, guid: 2453e430fd8d76042821044dace78739,
+        type: 3}
+      propertyPath: attackSphereRadius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2611590950733253000, guid: 2453e430fd8d76042821044dace78739,
         type: 3}
       propertyPath: m_Name
       value: MazeGuardian
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611590950733253000, guid: 2453e430fd8d76042821044dace78739,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3419899589365650226, guid: 2453e430fd8d76042821044dace78739,
         type: 3}
@@ -684,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 534299436940755630, guid: c18d2186b18b41343973f18fecddbeb7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 874232885047711764, guid: c18d2186b18b41343973f18fecddbeb7,
         type: 3}
