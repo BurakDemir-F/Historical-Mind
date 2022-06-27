@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace MazeWorld.Npc
 {
-    public class NpcHealthBehaviour : MonoBehaviour
+    public class NpcHealthBehaviour : MonoBehaviour,IGetHealthSystem
     {
         [SerializeField] private LivingThing npcData;
-        [SerializeField] private NpcInteractableBehaviour interactions;
+        [SerializeField] private NpcDamageHandler interactions;
         private HealthSystem _healthSystem;
 
         public event Action onNpcDie;
@@ -26,9 +26,9 @@ namespace MazeWorld.Npc
             interactions.OnDamage -= DamageHandler;
         }
 
-        private void DamageHandler()
+        private void DamageHandler(float damage)
         {
-            _healthSystem.Damage(npcData.Damage);
+            _healthSystem.Damage(damage);
             print("Npc damage!");
         }
 
@@ -37,7 +37,11 @@ namespace MazeWorld.Npc
             onNpcDie?.Invoke();
             print("Npc dead!!!");
         }
-        
-        
+
+
+        public HealthSystem GetHealthSystem()
+        {
+            return _healthSystem;
+        }
     }
 }

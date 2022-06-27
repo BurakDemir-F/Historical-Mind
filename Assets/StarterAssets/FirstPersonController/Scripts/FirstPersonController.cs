@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -50,6 +51,9 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+
+		public event Action OnMove;
+		public event Action OnMoveStop;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -192,6 +196,11 @@ namespace StarterAssets
 			{
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+				OnMove?.Invoke();
+			}
+			else
+			{
+				OnMoveStop?.Invoke();
 			}
 
 			// move the player

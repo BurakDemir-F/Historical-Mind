@@ -1,45 +1,54 @@
 using System;
 using System.Collections;
+using MazeWorld.Npc;
 using ScriptableObjects;
+using StarterAssets;
 using UnityEngine;
 
-namespace MazeWorld.Npc
+namespace MazeWorld.Player
 {
-    public class NpcAttackBehaviour : MonoBehaviour
+    public class PlayerAttackBehaviour : MonoBehaviour
     {
+        [SerializeField] private StarterAssetsInputs inputs;
         [SerializeField] private Transform attackTransform;
-        [SerializeField] private NpcMotionBehaviour motionBehaviour;
         [SerializeField] private LayerMask attackLayer;
         [SerializeField] private float attackSphereRadius = 1f;
         [SerializeField] private LivingThing npcData;
         [SerializeField] private Collider thisCollider;
+        [SerializeField] private PlayerMotionBehaviour motionBehavior;
         private SpherePhysic _overlapHelper;
-
+        
+        public event Action OnAttack;
+        
         private void Start()
         {
-            motionBehaviour.OnAttackMotionStart += AttackStartHandler;
-            motionBehaviour.OnAttackMotionEnd += AttackEndHandler;
             _overlapHelper = new SpherePhysic(attackTransform, attackSphereRadius, attackLayer);
+            inputs.OnInteractionHappen += AttackButtonPressedHandler;
+            motionBehavior.AttackMotionStart += AttackMotionStartedHandler;
+            motionBehavior.AttackMotionEnd += AttackMotionEndHandler;
         }
 
         private void OnDestroy()
         {
-            motionBehaviour.OnAttackMotionStart -= AttackStartHandler;
-            motionBehaviour.OnAttackMotionEnd -= AttackEndHandler;
+            inputs.OnInteractionHappen += AttackButtonPressedHandler;
+            motionBehavior.AttackMotionStart -= AttackMotionStartedHandler;
+            motionBehavior.AttackMotionEnd -= AttackMotionEndHandler;
         }
 
-        private void AttackStartHandler()
+        private void AttackButtonPressedHandler()
+        {
+            OnAttack?.Invoke();
+        }
+
+        private void AttackMotionStartedHandler()
         {
             StartCoroutine(CheckHitCor());
-            print("Attack start");
         }
 
-        private void AttackEndHandler()
+        private void AttackMotionEndHandler()
         {
             StopCoroutine(CheckHitCor());
-            print("Attack end");
         }
-
         private IEnumerator CheckHitCor()
         {
             var hitColliders = _overlapHelper.OverlapSphere();
@@ -62,10 +71,10 @@ namespace MazeWorld.Npc
             }
         }
 
-        private void OnDrawGizmosSelected()
+
+        private void OnDrawGizmos()
         {
-            if(attackTransform == null) return;
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(attackTransform.position,attackSphereRadius);
         }
     }

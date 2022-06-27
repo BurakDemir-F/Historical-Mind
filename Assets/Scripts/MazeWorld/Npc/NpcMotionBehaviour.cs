@@ -12,7 +12,7 @@ namespace MazeWorld.Npc
         [SerializeField] private NpcBehaviour npcBehaviour;
         [SerializeField] private Animator animator;
         [SerializeField] private NpcHealthBehaviour healthBehaviour;
-        [SerializeField] private NpcInteractableBehaviour npcInteractions;
+        [SerializeField] private NpcDamageHandler npcInteractions;
         private static readonly int State = Animator.StringToHash("State");
         private Coroutine _singleTakeDamageCor;
 
@@ -65,7 +65,7 @@ namespace MazeWorld.Npc
             animator.SetInteger(State,2);
         }
 
-        private void NpcDamageHandler()
+        private void NpcDamageHandler(float damage)
         {
             if (isTakingDamage) return;
             animator.SetInteger(State, 4);

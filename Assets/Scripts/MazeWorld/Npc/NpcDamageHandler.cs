@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace MazeWorld.Npc
 {
-    public class NpcInteractableBehaviour : MonoBehaviour, IInteractable
+    public class NpcDamageHandler : MonoBehaviour, IDamageable
     {
-        public event Action OnDamage;
-        public void Interact()
+        public event Action<float> OnDamage;
+        public void Damage(float damage)
         {
             Debug.Log("InteractionHappen");
-            OnDamage?.Invoke();
+            OnDamage?.Invoke(damage);
             InteractionOperations();
         }
 
