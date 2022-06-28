@@ -19,5 +19,10 @@ namespace MazeWorld.Npc
         {
             return Physics.OverlapSphere(_overlapTransform.position, _radius, _interactionLayer);
         }
+
+        public void DrawGizmo()
+        {
+            Gizmos.DrawSphere(_overlapTransform.position,_radius);
+        }
     }
 }

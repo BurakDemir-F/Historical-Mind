@@ -17,14 +17,14 @@ namespace MazeWorld.Player
         [SerializeField] private LivingThing npcData;
         [SerializeField] private Collider thisCollider;
         [SerializeField] private PlayerMotionBehaviour motionBehavior;
-        private CapsuleOverlap _overlapHelper;
+        private SpherePhysic _overlapHelper;
         private bool _isAttackMotionPlaying = false;
         
         public event Action OnAttack;
         
         private void Start()
         {
-            _overlapHelper = new CapsuleOverlap(attackTransformStart, attackTransformEnd,attackSphereRadius, attackLayer);
+            _overlapHelper = new SpherePhysic(attackTransformEnd,attackSphereRadius, attackLayer);
             inputs.OnInteractionHappen += AttackButtonPressedHandler;
             motionBehavior.AttackMotionStart += AttackMotionStartedHandler;
             motionBehavior.AttackMotionEnd += AttackMotionEndHandler;
@@ -56,11 +56,11 @@ namespace MazeWorld.Player
         }
         private IEnumerator CheckHitCor()
         {
-            var hitColliders = _overlapHelper.Overlap();
+            var hitColliders = _overlapHelper.OverlapSphere();
             
             while (hitColliders.Length == 0)
             {
-                hitColliders = _overlapHelper.Overlap();
+                hitColliders = _overlapHelper.OverlapSphere();
                 yield return null;
             }
 
