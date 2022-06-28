@@ -59,7 +59,7 @@ namespace MazeWorld.Npc
             if(!_isInRange) return;
             
             if(motionBehaviour.isAttacking) TurnToPlayer(GetTargetPos());
-            if(motionBehaviour.isTakingDamage || motionBehaviour.isAttacking) return;
+            if(/*motionBehaviour.isTakingDamage || */motionBehaviour.isAttacking) return;
 
             var targetPos = GetTargetPos();
             var myPos = transform.position;

@@ -56,5 +56,18 @@ namespace MazeWorld.Player
                 _isAttacking = false;
             });
         }
+
+        #region Test
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                character.OnMove -= MovementStartHandler;
+                character.OnMoveStop -= MovementEndHandler;
+            }
+        }
+
+        #endregion
     }
 }

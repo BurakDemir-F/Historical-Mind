@@ -29,6 +29,7 @@ namespace MazeWorld.Npc
             npcBehaviour.OnPlayerEscape += OnPlayerEscapeHandler;
             healthBehaviour.onNpcDie += NpcDieHandler;
             npcInteractions.OnDamage += NpcDamageHandler;
+            //animator.DebugAllClipInfo();
         }
 
         private void OnDestroy()
@@ -70,7 +71,7 @@ namespace MazeWorld.Npc
             if (isTakingDamage) return;
             animator.SetInteger(State, 4);
             isTakingDamage = true;
-            DOVirtual.DelayedCall(GetCurrentMoveLength(), () => isTakingDamage = false);
+            DOVirtual.DelayedCall(animator.GetClipLengthFromClipIndex(3), () => isTakingDamage = false);
         }
         
         private void NpcDieHandler()
