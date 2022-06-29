@@ -141,10 +141,9 @@ namespace Maze
             if (isFound)
             {
                 mazeRoom.gameObject.SetActive(true);
-                player = Instantiate(testPlayer,transform,true);
                 var roomPosition = mazeRoom.transform.position;
-                player.transform.position = new Vector3(roomPosition.x, 1f, roomPosition.z);
-
+                player = Instantiate(testPlayer,new Vector3(roomPosition.x, 1f, roomPosition.z),Quaternion.identity);
+                player.transform.SetParent(transform);
                 var playerCollider = player.GetComponentInChildren<Collider>();
                 mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(playerCollider);
                 PlayerInfo.SetPlayer(playerCollider.gameObject);

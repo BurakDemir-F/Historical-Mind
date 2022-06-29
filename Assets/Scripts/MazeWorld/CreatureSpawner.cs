@@ -7,6 +7,7 @@ using Maze;
 using MazeWorld.Npc;
 using Patterns;
 using ScriptableObjects;
+using Unity.Mathematics;
 using UnityEngine;
 using Utilities;
 using Random = UnityEngine.Random;
@@ -80,8 +81,7 @@ namespace MazeWorld
         {
             if(creatureType == MazeWorldCreatures.None) return null;
             
-            var creature = Instantiate(creatureDictionary[creatureType].Flesh, room.transform,true);
-            creature.transform.position = pos;
+            var creature = Instantiate(creatureDictionary[creatureType].Flesh, pos,quaternion.identity);
             creature.transform.SetParent(room.transform);
 
             return creature;

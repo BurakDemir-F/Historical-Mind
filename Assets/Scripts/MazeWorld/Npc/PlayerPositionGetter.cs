@@ -7,7 +7,7 @@ namespace MazeWorld.Npc
     {
         public Transform GetTarget()
         {
-            return PlayerInfo.PlayerTransform.GetChild(0).transform;
+            return PlayerInfo.PlayerTransform;
         }
     }
 }
