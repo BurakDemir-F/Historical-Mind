@@ -24,6 +24,12 @@ namespace MazeWorld
         {
             base.Awake();
             Initialize();
+            NpcBehaviour.OnNpcDie += NpcDieHandler;
+        }
+
+        private void OnDestroy()
+        {
+            NpcBehaviour.OnNpcDie -= NpcDieHandler;
         }
 
         private void Initialize()
@@ -87,6 +93,12 @@ namespace MazeWorld
                 return _creatureKeys = creatureDictionary.Keys.ToList();
             
             return _creatureKeys;
+        }
+
+        private void NpcDieHandler(LivingThing livingThing, RoomBehaviour room)
+        {
+            var roomData = MazeInfo.GetRoomData(room);
+            roomData.RemoveCreature(livingThing.Kind);
         }
     }
 

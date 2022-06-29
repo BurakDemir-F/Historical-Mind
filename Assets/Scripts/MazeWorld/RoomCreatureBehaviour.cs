@@ -11,5 +11,10 @@ namespace MazeWorld
         {
             locatedRoom = room;
         }
+
+        public RoomBehaviour GetRoom()
+        {
+            return locatedRoom;
+        }
     }
 }

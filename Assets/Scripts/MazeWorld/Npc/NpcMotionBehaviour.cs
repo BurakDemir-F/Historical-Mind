@@ -76,8 +76,10 @@ namespace MazeWorld.Npc
         
         private void NpcDieHandler()
         {
+            if(npcBehaviour.IsNpcDead()) return;
             //npc died.
             print("npc died");
+            animator.SetInteger(State, 5);
         }
         
         private float GetCurrentMoveLength()

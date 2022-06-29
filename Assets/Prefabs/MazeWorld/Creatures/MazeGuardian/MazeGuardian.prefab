@@ -752,6 +752,7 @@ MonoBehaviour:
   targetPosGetter:
     _underlyingValue: {fileID: 7393926914482383812}
   motionBehaviour: {fileID: 82579766361182625}
+  healthBehaviour: {fileID: 5300708285837198959}
 --- !u!114 &7031644324462137467
 MonoBehaviour:
   m_ObjectHideFlags: 0

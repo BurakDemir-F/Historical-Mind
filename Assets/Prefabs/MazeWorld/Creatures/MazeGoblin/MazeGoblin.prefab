@@ -274,6 +274,7 @@ MonoBehaviour:
   targetPosGetter:
     _underlyingValue: {fileID: 2045626025969222330}
   motionBehaviour: {fileID: 5518691448039461387}
+  healthBehaviour: {fileID: 9014110936177810784}
 --- !u!114 &5518691448039461387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +360,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackSphereRadius: 0.3
+  attackSphereRadius: 1
   npcData: {fileID: 11400000, guid: 7dc78189f154abf45900cdf2a2b28a2f, type: 2}
   thisCollider: {fileID: 8488035871767527637}
 --- !u!136 &8488035871767527637

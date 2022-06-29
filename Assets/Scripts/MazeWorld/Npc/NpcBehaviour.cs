@@ -4,6 +4,8 @@ using Maze;
 using ScriptableObjects;
 using UnityEngine;
 using AYellowpaper;
+using DG.Tweening;
+
 namespace MazeWorld.Npc
 {
     public class NpcBehaviour : MonoBehaviour
@@ -15,24 +17,30 @@ namespace MazeWorld.Npc
         [SerializeField] private Transform target;
         [SerializeField] private InterfaceReference<IGetTargetTransform> targetPosGetter;
         [SerializeField] private NpcMotionBehaviour motionBehaviour;
+        [SerializeField] private NpcHealthBehaviour healthBehaviour;
         public event Action OnAttackRange;
         public event Action OnChaseRange;
         public event Action OnPlayerEscape;
 
         private bool _isInRange = false;
+        private bool _isNpcDead = false;
         private Vector3 _startPos;
+
+        public static event Action<LivingThing, RoomBehaviour> OnNpcDie;
         
         private void Start()
         {
             SetData();
             roomOperationsBehaviour.OnPlayerRoom += PlayerEnterRoomHandler;
             roomOperationsBehaviour.OnPlayerExitRoom += PlayerExitRoomHandler;
+            healthBehaviour.onNpcDie += NpcDieHandler;
         }
 
         private void OnDestroy()
         {
             roomOperationsBehaviour.OnPlayerRoom -= PlayerEnterRoomHandler;
             roomOperationsBehaviour.OnPlayerExitRoom -= PlayerExitRoomHandler;
+            healthBehaviour.onNpcDie -= NpcDieHandler;
         }
 
         private void OnDisable()
@@ -56,7 +64,7 @@ namespace MazeWorld.Npc
 
         private void Update()
         {
-            if(!_isInRange) return;
+            if(!_isInRange || _isNpcDead) return;
             
             if(motionBehaviour.isAttacking) TurnToPlayer(GetTargetPos());
             if(/*motionBehaviour.isTakingDamage || */motionBehaviour.isAttacking) return;
@@ -116,6 +124,18 @@ namespace MazeWorld.Npc
                 MoveTowardsTarget(targetPos);
                 yield return wait;
             }
+        }
+
+        private void NpcDieHandler()
+        {
+            OnNpcDie?.Invoke(npcData,roomOperationsBehaviour.GetRoom());
+            _isNpcDead = true;
+            DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
+        }
+
+        public bool IsNpcDead()
+        {
+            return _isNpcDead;
         }
         
         #region Test

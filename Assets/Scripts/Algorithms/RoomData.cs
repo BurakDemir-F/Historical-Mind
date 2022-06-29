@@ -37,5 +37,11 @@ namespace Algorithms
         {
             if(!_creatures.Contains(creature)) _creatures.Add(creature);
         }
+        
+        public void RemoveCreature(MazeWorldCreatures creature)
+        {
+            if(_creatures.Contains(creature)) _creatures.Remove(creature);
+        }
+
     }
 }
