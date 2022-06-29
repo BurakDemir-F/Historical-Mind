@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MazeWorld.Npc
 {
-    public class NpcAttackBehaviour : MonoBehaviour
+    public class NpcAttackBehaviour : AttackBehaviour
     {
         [SerializeField] private Transform attackTransform;
         [SerializeField] private NpcMotionBehaviour motionBehaviour;
@@ -58,6 +58,7 @@ namespace MazeWorld.Npc
                 var damageObject = hitCollider.GetComponent<IDamageable>();
                 if (damageObject == null) continue;
                 damageObject.Damage(npcData.Power);
+                InvokeHitEvent(hitCollider.transform.position);
                 break;
             }
         }
