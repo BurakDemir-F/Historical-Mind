@@ -15,6 +15,8 @@ namespace MazeWorld.Npc
         [SerializeField] private Collider thisCollider;
         private SpherePhysic _overlapHelper;
 
+        private bool _isAttacking = false;
+
         private void Start()
         {
             motionBehaviour.OnAttackMotionStart += AttackStartHandler;
@@ -30,14 +32,20 @@ namespace MazeWorld.Npc
 
         private void AttackStartHandler()
         {
+            if (IsAttacking())
+            {
+                return;
+            }
             StartCoroutine(CheckHitCor());
             print("Attack start");
+            SetAttack(true);
         }
 
         private void AttackEndHandler()
         {
             StopCoroutine(CheckHitCor());
             print("Attack end");
+            SetAttack(false);
         }
 
         private IEnumerator CheckHitCor()
@@ -68,6 +76,16 @@ namespace MazeWorld.Npc
             if(attackTransform == null) return;
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(attackTransform.position,attackSphereRadius);
+        }
+
+        private bool IsAttacking()
+        {
+            return _isAttacking;
+        }
+
+        private void SetAttack(bool status)
+        {
+            _isAttacking = status;
         }
     }
 }

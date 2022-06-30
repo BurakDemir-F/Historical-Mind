@@ -23,6 +23,7 @@ namespace MazeWorld.Player
             character.OnMove += MovementStartHandler;
             character.OnMoveStop += MovementEndHandler;
             attackBehaviour.OnAttack += AttackHandler;
+            animator.DebugAllClipInfo();
         }
 
         private void OnDestroy()

@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -155,12 +155,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureDictionary:
     isModifiable: 0
-    keys: 03000000040000000500000006000000
+    keys: 0300000004000000050000000600000007000000
     values:
     - {fileID: 11400000, guid: 49133c91a46eef34c99848bad71ebb0c, type: 2}
     - {fileID: 11400000, guid: be131d0b64c8f4348b8450fc81358899, type: 2}
     - {fileID: 11400000, guid: a413c476cd12e51428ecaae9d2939690, type: 2}
     - {fileID: 11400000, guid: 7dc78189f154abf45900cdf2a2b28a2f, type: 2}
+    - {fileID: 11400000, guid: c2a17c91c33beef47bff24855a9c60bd, type: 2}
   distanceDistribution: {fileID: 11400000, guid: e8f0af462b7df81448922fc8d30e3086,
     type: 2}
 --- !u!4 &136721072

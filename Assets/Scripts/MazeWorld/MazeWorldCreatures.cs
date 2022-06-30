@@ -16,7 +16,8 @@
         OozeyGreenMug,
         OozeyRedMug,
         MazeGuardian,
-        MazeGoblin
+        MazeGoblin,
+        MazeVampire
     }
 
     public enum MazeWorldObjects

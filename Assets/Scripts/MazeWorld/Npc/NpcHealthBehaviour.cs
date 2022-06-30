@@ -22,8 +22,7 @@ namespace MazeWorld.Npc
 
         private void OnDestroy()
         {
-            _healthSystem.OnDead -= NpcDieHandler;
-            interactions.OnDamage -= DamageHandler;
+           RemoveEventHandlers();
         }
 
         private void DamageHandler(float damage)
@@ -36,12 +35,19 @@ namespace MazeWorld.Npc
         {
             onNpcDie?.Invoke();
             print("Npc dead!!!");
+            RemoveEventHandlers();
         }
 
 
         public HealthSystem GetHealthSystem()
         {
             return _healthSystem;
+        }
+
+        private void RemoveEventHandlers()
+        {
+            _healthSystem.OnDead -= NpcDieHandler;
+            interactions.OnDamage -= DamageHandler;
         }
     }
 }

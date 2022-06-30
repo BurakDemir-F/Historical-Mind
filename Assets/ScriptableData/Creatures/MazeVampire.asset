@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423b7996aae940c8ae5d1e11e5e6b118, type: 3}
+  m_Name: MazeVampire
+  m_EditorClassIdentifier: 
+  kind: 7
+  health: 200
+  power: 25
+  damage: 25
+  flesh: {fileID: 4387073758309655154, guid: dbccaf30904dfdf4391b89571f6e201a, type: 3}
+  distanceValue: 0.9
+  speed: 5
+  attackRange: 1.5

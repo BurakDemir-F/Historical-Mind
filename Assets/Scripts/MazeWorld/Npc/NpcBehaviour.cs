@@ -23,9 +23,9 @@ namespace MazeWorld.Npc
         public event Action OnPlayerEscape;
 
         private bool _isInRange = false;
-        private bool _isNpcDead = false;
         private Vector3 _startPos;
-
+        private bool _isNpcDead;
+        
         public static event Action<LivingThing, RoomBehaviour> OnNpcDie;
         
         private void Start()
@@ -64,7 +64,7 @@ namespace MazeWorld.Npc
 
         private void Update()
         {
-            if(!_isInRange || _isNpcDead) return;
+            if(!_isInRange || IsNpcDead()) return;
             
             if(motionBehaviour.isAttacking) TurnToPlayer(GetTargetPos());
             if(/*motionBehaviour.isTakingDamage || */motionBehaviour.isAttacking) return;
@@ -129,8 +129,8 @@ namespace MazeWorld.Npc
         private void NpcDieHandler()
         {
             OnNpcDie?.Invoke(npcData,roomOperationsBehaviour.GetRoom());
+            //DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
             _isNpcDead = true;
-            DOVirtual.DelayedCall(5f, () => Destroy(gameObject));
         }
 
         public bool IsNpcDead()
