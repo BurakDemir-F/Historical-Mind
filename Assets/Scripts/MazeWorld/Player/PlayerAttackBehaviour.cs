@@ -63,9 +63,7 @@ namespace MazeWorld.Player
                 hitColliders = _overlapHelper.OverlapSphere();
                 yield return null;
             }
-
-            if (hitColliders.Length == 0) yield break;
-
+            
             foreach (var hitCollider in hitColliders)
             {
                 if(thisCollider == hitCollider) continue;

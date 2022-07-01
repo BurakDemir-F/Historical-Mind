@@ -17,9 +17,9 @@ namespace ScriptableObjects
                  "when getting closer to the goal room, creatures must be more powerful." +
                  " Less Distance value more harmful")]
         [SerializeField] private float distanceValue;
-
         [SerializeField] private float speed;
         [SerializeField] private float attackRange;
+        [SerializeField] private float attackSpeed;
 
         public MazeWorldCreatures Kind => kind;
         public int Health => health;

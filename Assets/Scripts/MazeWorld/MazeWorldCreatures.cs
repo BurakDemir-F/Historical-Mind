@@ -17,7 +17,10 @@
         OozeyRedMug,
         MazeGuardian,
         MazeGoblin,
-        MazeVampire
+        MazeVampire,
+        MouthlessLady,
+        RatFromKelgar,
+        Minator
     }
 
     public enum MazeWorldObjects

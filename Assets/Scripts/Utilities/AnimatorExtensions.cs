@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using UnityEngine;
 
@@ -12,10 +13,22 @@ namespace Utilities
             return clipInfo[0].clip.length;
         }
 
+        public static AnimationClip GetClipFromIndex(this Animator animator,int clipIndex)
+        {
+            var clips = animator.runtimeAnimatorController.animationClips;
+            
+            if (clipIndex >= clips.Length) return null;
+
+            return clips[clipIndex];
+        }
+        
         //index starts from zero.
         public static float GetClipLengthFromClipIndex(this Animator animator, int clipIndex)
         {
             var clips = animator.runtimeAnimatorController.animationClips;
+
+            if (clipIndex >= clips.Length) return 0f;
+            
             return clips[clipIndex].length;
         }
 
@@ -23,6 +36,9 @@ namespace Utilities
         public static string GetClipNameFromClipIndex(this Animator animator, int clipIndex)
         {
             var clips = animator.runtimeAnimatorController.animationClips;
+            
+            if (clipIndex >= clips.Length) return "";
+
             return clips[clipIndex].name;
         }
         
@@ -52,6 +68,18 @@ namespace Utilities
                 stringBuilder.AppendLine($"Clip name: {clip.name}, Clip Length: {clip.length}");
             }
             Debug.Log(stringBuilder.ToString());
+        }
+        
+        //you can't use with lambda functions.(i am talking about Action parameter.)
+        public static void AddAnimationEvent(this Animator animator, int clipIndex,float time, Action action)
+        {
+            var clip = animator.GetClipFromIndex(clipIndex);
+            var animationEvent = new AnimationEvent
+            {
+                time = time,
+                functionName = action.Method.Name
+            };
+            clip.AddEvent(animationEvent);
         }
 
 

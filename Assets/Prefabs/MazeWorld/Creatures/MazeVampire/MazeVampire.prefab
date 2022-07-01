@@ -1410,7 +1410,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackSphereRadius: 0.1
+  attackSphereRadius: 0.3
   npcData: {fileID: 11400000, guid: c2a17c91c33beef47bff24855a9c60bd, type: 2}
   thisCollider: {fileID: 8708835671375539367}
 --- !u!1 &4489248246094968406

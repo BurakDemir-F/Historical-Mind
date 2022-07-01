@@ -40,7 +40,7 @@ namespace MazeWorld.Npc
         #region test
         
         [ContextMenu("Room entered.")]
-        private void TestOnRoomEnter()
+        public void TestOnRoomEnter()
         {
             OnPlayerRoom?.Invoke();
         }

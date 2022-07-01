@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using ScriptableObjects;
 using StarterAssets;
 using UnityEngine;
 using Utilities;
@@ -11,6 +12,7 @@ namespace MazeWorld.Player
         [SerializeField]private Animator animator;
         [SerializeField] private FirstPersonController character;
         [SerializeField] private PlayerAttackBehaviour attackBehaviour;
+        [SerializeField] private LivingThing data;
         private static readonly int State = Animator.StringToHash("State");
         
         public event Action AttackMotionStart;
@@ -23,7 +25,7 @@ namespace MazeWorld.Player
             character.OnMove += MovementStartHandler;
             character.OnMoveStop += MovementEndHandler;
             attackBehaviour.OnAttack += AttackHandler;
-            animator.DebugAllClipInfo();
+            // animator.DebugAllClipInfo();
         }
 
         private void OnDestroy()
@@ -47,6 +49,7 @@ namespace MazeWorld.Player
 
         private void AttackHandler()
         {
+            if(_isAttacking) return;
             _isAttacking = true;
             animator.SetInteger(State,3);
             AttackMotionStart?.Invoke();

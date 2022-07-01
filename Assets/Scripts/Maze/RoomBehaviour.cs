@@ -16,10 +16,11 @@ namespace Maze
         private Vector2Int _position;
         //[field:SerializeField]public bool IsBombRoom { get; private set; }
         
-        private void OnDestroy()
-        {
-            MazeInfo.RemoveRoom(_position);
-        }
+        //Burayı kapattım gerekli olmadığını düşünüyorum.
+        // private void OnDestroy()
+        // {
+        //     MazeInfo.RemoveRoom(_position);
+        // }
 
         public void UpdateRoom(IReadOnlyList<bool> doorOpenStatuses)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using ScriptableObjects;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MazeWorld.Npc
@@ -21,6 +22,7 @@ namespace MazeWorld.Npc
         {
             motionBehaviour.OnAttackMotionStart += AttackStartHandler;
             motionBehaviour.OnAttackMotionEnd += AttackEndHandler;
+            motionBehaviour.OnMotionStateChanged += MotionStateChangedHandler;
             _overlapHelper = new SpherePhysic(attackTransform, attackSphereRadius, attackLayer);
         }
 
@@ -28,14 +30,12 @@ namespace MazeWorld.Npc
         {
             motionBehaviour.OnAttackMotionStart -= AttackStartHandler;
             motionBehaviour.OnAttackMotionEnd -= AttackEndHandler;
+            motionBehaviour.OnMotionStateChanged -= MotionStateChangedHandler;
         }
 
         private void AttackStartHandler()
         {
-            if (IsAttacking())
-            {
-                return;
-            }
+            if (IsAttacking()) return;
             StartCoroutine(CheckHitCor());
             print("Attack start");
             SetAttack(true);
@@ -43,11 +43,21 @@ namespace MazeWorld.Npc
 
         private void AttackEndHandler()
         {
+            if (!IsAttacking()) return;
             StopCoroutine(CheckHitCor());
             print("Attack end");
             SetAttack(false);
         }
 
+        private void MotionStateChangedHandler(Motion motion)
+        {
+            if(motion == Motion.Attack) return;
+            if (!IsAttacking()) return;
+            StopCoroutine(CheckHitCor());
+            print("Motion Changed Attack End");
+            SetAttack(false);
+        }
+        
         private IEnumerator CheckHitCor()
         {
             var hitColliders = _overlapHelper.OverlapSphere();
