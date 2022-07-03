@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b2e65eb3d59d3084b9085239fd57e9ef
+  - enabled: 1
     path: Assets/Scenes/HistoricalMind.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

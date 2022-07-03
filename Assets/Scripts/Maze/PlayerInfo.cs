@@ -1,3 +1,4 @@
+using CodeMonkey.HealthSystemCM;
 using UnityEngine;
 
 namespace Maze
@@ -14,6 +15,14 @@ namespace Maze
             PlayerObject = player;
             PlayerTransform = player.transform;
             SetPlayerRoot();
+            SetPlayerHealth();
+        }
+
+        private static void SetPlayerHealth()
+        {
+            var healthSystem = PlayerRoot.GetComponentInChildren<IGetHealthSystem>();
+            var healthBar = GameObject.FindWithTag("PlayerHealthBar").GetComponent<HealthBarUI>();
+            healthBar.SetHealthSystem(healthSystem.GetHealthSystem());
         }
 
         private static void SetPlayerRoot()

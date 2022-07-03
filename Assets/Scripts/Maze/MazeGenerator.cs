@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Algorithms;
 using DG.Tweening;
+using MazeWorld;
 using Patterns;
 using ScriptableObjects;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace Maze
         {
             _size = mazeData.size;
             MazeInfo.InitMazeInfo(_size);
+            CreatureInfo.InitCreatureInfo(_size.x * _size.y);
         }
         
         public void GenerateBackTracking()

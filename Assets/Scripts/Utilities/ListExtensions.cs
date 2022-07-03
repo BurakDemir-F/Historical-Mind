@@ -21,5 +21,10 @@ namespace Utilities
             return y * width + x;
         }
 
+        public static bool IsEmpty<T>(this IList<T> list)
+        {
+            return list.Count == 0;
+        }
+
     }
 }

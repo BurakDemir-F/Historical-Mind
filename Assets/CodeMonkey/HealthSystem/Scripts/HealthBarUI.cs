@@ -7,7 +7,7 @@ namespace CodeMonkey.HealthSystemCM {
     /// Simple UI Health Bar, sets the Image fillAmount based on the linked HealthSystem
     /// Check the Demo scene for a usage example
     /// </summary>
-    public class HealthBarUI : MonoBehaviour {
+    public class HealthBarUI : MonoBehaviour, IGetHealthSystem  {
 
         [Tooltip("Optional; Either assign a reference in the Editor (that implements IGetHealthSystem) or manually call SetHealthSystem()")]
         [SerializeField] private GameObject getHealthSystemGameObject;
@@ -57,9 +57,14 @@ namespace CodeMonkey.HealthSystemCM {
         /// Clean up events when this Game Object is destroyed
         /// </summary>
         private void OnDestroy() {
+            if(healthSystem == null) return;
             healthSystem.OnHealthChanged -= HealthSystem_OnHealthChanged;
         }
 
+        public HealthSystem GetHealthSystem()
+        {
+            return healthSystem;
+        }
     }
 
 }

@@ -31,7 +31,6 @@ namespace MazeWorld.Npc
             npcBehaviour.OnPlayerEscape += OnPlayerEscapeHandler;
             healthBehaviour.onNpcDie += NpcDieHandler;
             npcInteractions.OnDamage += NpcDamageHandler;
-            animator.DebugAllClipInfo();
         }
 
         private void OnDestroy()

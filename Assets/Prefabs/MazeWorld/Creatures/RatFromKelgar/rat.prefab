@@ -2323,6 +2323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3420e5f63ec2840965f0dfad0ccde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motionBehaviour: {fileID: 2282437677666666140}
 --- !u!65 &3407981754635779460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2334,8 +2335,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2609332, z: 2.4524927}
-  m_Center: {x: 0, y: 0.68192697, z: 0.06971639}
+  m_Size: {x: 1, y: 2.0814862, z: 2.4524927}
+  m_Center: {x: 0, y: 1.0922034, z: 0.069716424}
 --- !u!114 &4999776533667486089
 MonoBehaviour:
   m_ObjectHideFlags: 0

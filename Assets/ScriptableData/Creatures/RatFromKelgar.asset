@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RatFromKelgar
   m_EditorClassIdentifier: 
   kind: 9
-  health: 10
+  health: 250
   power: 1
   damage: 45
   flesh: {fileID: 8587352300575908276, guid: c69d5093ae863304ba0dad3ac1b543cc, type: 3}

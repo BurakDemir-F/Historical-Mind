@@ -38,7 +38,6 @@ namespace MazeWorld.Npc
             RemoveEventHandlers();
         }
 
-
         public HealthSystem GetHealthSystem()
         {
             return _healthSystem;

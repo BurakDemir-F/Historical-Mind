@@ -18,6 +18,7 @@ namespace MazeWorld
     {
         [SerializeField] private CreatureLivingThingDict creatureDictionary;
         [SerializeField] private DistanceDistribution distanceDistribution;
+        [SerializeField] private LivingThing minator;
         private List<MazeWorldCreatures> _creatureKeys = new ();
         private DistanceThingPicker<LivingThing> _typeFinder;
 
@@ -59,7 +60,19 @@ namespace MazeWorld
                 var newCreature = CreateMonster(creatureType,room.Value.Locator.GetPosition(),room.Value);
                 if(newCreature == null) continue;
                 newCreature.GetComponent<NpcRoomOperationsBehaviour>().SetRoom(room.Value);
+                CreatureInfo.AddCreature(roomData,newCreature.GetComponent<NpcBehaviour>());
             }
+
+            SpawnMinator();
+        }
+
+        private void SpawnMinator()
+        {
+            var goalRoom = MazeInfo.GoalRoom;
+            var minatorObject = Instantiate(minator.Flesh, goalRoom.Locator.GetPosition(), Quaternion.identity);
+            minatorObject.transform.SetParent(goalRoom.transform);
+            minatorObject.GetComponent<NpcRoomOperationsBehaviour>().SetRoom(goalRoom);
+            CreatureInfo.AddCreature(MazeInfo.GetRoomData(goalRoom),minatorObject.GetComponent<NpcBehaviour>());
         }
 
         private MazeWorldCreatures GetCreatureType(float distance)
@@ -81,7 +94,7 @@ namespace MazeWorld
         {
             if(creatureType == MazeWorldCreatures.None) return null;
             
-            var creature = Instantiate(creatureDictionary[creatureType].Flesh, pos,quaternion.identity);
+            var creature = Instantiate(creatureDictionary[creatureType].Flesh, pos,Quaternion.identity);
             creature.transform.SetParent(room.transform);
 
             return creature;
