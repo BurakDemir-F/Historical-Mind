@@ -23,6 +23,12 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 		public event Action OnInteractionHappen;
+		public event Action OnEscapeButtonPressed;
+
+		private void OnEnable()
+		{
+			SetCursorState(cursorLocked);
+		}
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -46,6 +52,14 @@ namespace StarterAssets
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
+		}
+
+		public void OnEscape(InputValue value)
+		{
+			if(value.isPressed)
+				OnEscapeButtonPressed?.Invoke();
+			
+			Debug.Log("Escape button pressed");
 		}
 
 		public void OnInteract(InputValue value)
@@ -77,7 +91,16 @@ namespace StarterAssets
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			if(hasFocus)
+			{
+				cursorLocked = true;
+				SetCursorState(cursorLocked);
+			}
+			else
+			{
+				cursorLocked = false;
+				SetCursorState(cursorLocked);
+			}
 		}
 
 		private void SetCursorState(bool newState)

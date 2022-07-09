@@ -15,8 +15,7 @@ namespace MazeWorld.Npc
         public event Action<float> OnDamage;
         public void Damage(float damage)
         {
-            if(motionBehaviour.isAttacking) return;
-            Debug.Log("InteractionHappen");
+            // if(motionBehaviour.isAttacking) return; how i write this?
             OnDamage?.Invoke(damage);
             InteractionOperations();
         }

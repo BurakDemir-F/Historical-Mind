@@ -83,7 +83,6 @@ namespace MazeWorld.Player
         {
             _isAttackMotionPlaying = status;
         }
-        
 
         private void OnDrawGizmos()
         {

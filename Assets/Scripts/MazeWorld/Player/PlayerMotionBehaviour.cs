@@ -13,12 +13,14 @@ namespace MazeWorld.Player
         [SerializeField] private FirstPersonController character;
         [SerializeField] private PlayerAttackBehaviour attackBehaviour;
         [SerializeField] private LivingThing data;
+        [SerializeField] private float cooldown = 1f;
         private static readonly int State = Animator.StringToHash("State");
         
         public event Action AttackMotionStart;
         public event Action AttackMotionEnd;
 
         private bool _isAttacking = false;
+        private bool _isInCoolDown = false;
 
         private void Start()
         {
