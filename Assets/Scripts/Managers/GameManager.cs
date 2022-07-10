@@ -2,6 +2,7 @@ using System.Collections;
 using Maze;
 using MazeWorld;
 using MazeWorld.Dedalus;
+using UI;
 using UnityEngine;
 
 namespace Managers
@@ -25,6 +26,17 @@ namespace Managers
             var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);
             StartCoroutine(MazeGenerator.Instance.CreateTestPlayer(startVector));
             TestAudioPlayer.Instance.PlayMusic();
+            PlayFades();
+        }
+
+        private void PlayFades()
+        {
+            var fadeManagers = FindObjectsOfType<BFadeManager>();
+            print($"fade managers count{fadeManagers.Length}");
+            foreach (var bFadeManager in fadeManagers)
+            {
+                bFadeManager.PlayFadeInAnimation();
+            }
         }
     }
 }
