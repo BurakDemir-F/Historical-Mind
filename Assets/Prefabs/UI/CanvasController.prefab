@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2364017476690381344}
   - component: {fileID: 2364017476690381347}
-  - component: {fileID: 142348712673417736}
+  - component: {fileID: 6988933930956844044}
   m_Layer: 0
   m_Name: CanvasController
   m_TagString: Untagged
@@ -50,7 +50,7 @@ MonoBehaviour:
   cursorCanvas: {fileID: 3846725195363499398}
   healthCanvas: {fileID: 5920458659620792166}
   loadingCanvas: {fileID: 0}
---- !u!114 &142348712673417736
+--- !u!114 &6988933930956844044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,10 +59,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2364017476690381346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a04861c2dc847e4b5fd606a795ed5b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dd99b313a849b144b2bb97b93a5a6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 3
 --- !u!1001 &2364017475916008617
 PrefabInstance:
   m_ObjectHideFlags: 0

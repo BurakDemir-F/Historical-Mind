@@ -111,7 +111,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1561901836371846621}
   - component: {fileID: 1561901836371846623}
-  - component: {fileID: 3754028111469310119}
+  - component: {fileID: 16559717028629634}
+  - component: {fileID: 608519278833161036}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
@@ -147,7 +148,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561901836371846620}
   m_CullTransparentMesh: 1
---- !u!114 &3754028111469310119
+--- !u!114 &16559717028629634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,11 +157,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1561901836371846620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce329eea956de37478219b24d6a5f47c, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -177,3 +178,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &608519278833161036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561901836371846620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955d47c989632e54b8405145f236f58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInWaitTime: 3
+  fadeOutWaitTime: 3
+  animationPlayTime: 3

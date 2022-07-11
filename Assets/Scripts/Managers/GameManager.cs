@@ -31,12 +31,7 @@ namespace Managers
 
         private void PlayFades()
         {
-            var fadeManagers = FindObjectsOfType<BFadeManager>();
-            print($"fade managers count{fadeManagers.Length}");
-            foreach (var bFadeManager in fadeManagers)
-            {
-                bFadeManager.PlayFadeInAnimation();
-            }
+            FadeManagerItemHolder.PlayFadeIn();
         }
     }
 }

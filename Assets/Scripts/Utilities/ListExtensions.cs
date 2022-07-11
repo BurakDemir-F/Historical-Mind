@@ -26,5 +26,15 @@ namespace Utilities
             return list.Count == 0;
         }
 
+        public static void UniqueAdd<T>(this IList<T> list, T item)
+        {
+            if (!list.Contains(item)) list.Add(item);
+        }
+        
+        public static void SafeRemove<T>(this IList<T> list, T item)
+        {
+            if (list.Contains(item)) list.Remove(item);
+        }
+
     }
 }

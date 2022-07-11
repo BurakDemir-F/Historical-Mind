@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 8279617874622884815}
   - component: {fileID: 8279617874622884784}
   - component: {fileID: 8279617874622884785}
+  - component: {fileID: 2173665137277062727}
   m_Layer: 5
   m_Name: HealthCanvas
   m_TagString: Untagged
@@ -440,6 +441,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2173665137277062727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279617874622884786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd99b313a849b144b2bb97b93a5a6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8279617873811416988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -447,6 +460,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8279617874622884814}
     m_Modifications:
+    - target: {fileID: 1658283231203944461, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658283231683653389, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1658283231683653389, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
         type: 3}
       propertyPath: m_Color.b
@@ -585,6 +608,48 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8279617873811416988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7342128836594945950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658283231203944450, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8279617873811416988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7218027650828928679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342128836594945950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955d47c989632e54b8405145f236f58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInWaitTime: 3
+  fadeOutWaitTime: 3
+  animationPlayTime: 5
+--- !u!1 &7342128837225646238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658283231683653378, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8279617873811416988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1152042703970070184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342128837225646238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955d47c989632e54b8405145f236f58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeInWaitTime: 3
+  fadeOutWaitTime: 3
+  animationPlayTime: 5
 --- !u!1001 &8279617874100761540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,6 +676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658283232174595477, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1658283232174595478, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
         type: 3}
@@ -717,6 +787,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1658283232174595479, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c, type: 3}
 --- !u!1 &7342128835699207761 stripped
@@ -732,7 +807,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7342128835699207761}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57a7bd46aa5e4d642b2f6297e846950d, type: 3}
   m_Name: 
@@ -751,7 +826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 8279617874100761540}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7342128835699207761}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7912dc3ce1cccc4a9e9bf3bdc8f0b0e, type: 3}
   m_Name: 
