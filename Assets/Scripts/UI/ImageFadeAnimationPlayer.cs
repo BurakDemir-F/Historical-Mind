@@ -10,6 +10,7 @@ namespace UI
     public class ImageFadeAnimationPlayer : MonoBehaviour,IFadeAnimationPlayer
     {
         [SerializeField] private float fadeInWaitTime,fadeOutWaitTime,animationPlayTime;
+        [SerializeField] private bool hookController = true;
         private IItemHolder<IFadeAnimationPlayer> _itemHolder;
         private Image _image;
 
@@ -21,17 +22,17 @@ namespace UI
 
         private void OnEnable()
         {
-            _itemHolder?.Add(this);
+            if(hookController) _itemHolder?.Add(this);
         }
 
         private void OnDisable()
         {
-            _itemHolder?.Remove(this);
+            if(hookController) _itemHolder?.Remove(this);
         }
 
         public void PlayFadeInAnimation()
         {
-            _image.SetAlpha(0);
+            //_image.SetAlpha(0);
 
             var sequence = DOTween.Sequence();
             sequence.AppendInterval(fadeInWaitTime);
@@ -40,7 +41,7 @@ namespace UI
 
         public void PlayFadeOutAnimation()
         {
-            _image.SetAlpha(1);
+            //_image.SetAlpha(1);
 
             var sequence = DOTween.Sequence();
             sequence.AppendInterval(fadeOutWaitTime);

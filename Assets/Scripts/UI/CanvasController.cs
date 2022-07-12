@@ -1,17 +1,18 @@
 ﻿using System;
 using Managers;
+using Patterns;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UI
 {
-    public class CanvasController : MonoBehaviour
+    public class CanvasController : Singleton<CanvasController>
     {
         [SerializeField]private Canvas cursorCanvas,healthCanvas,loadingCanvas;
 
-        private void Awake()
+        public override void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
             SceneController.OnSceneChanged += SceneChangedHandler;
         }
 

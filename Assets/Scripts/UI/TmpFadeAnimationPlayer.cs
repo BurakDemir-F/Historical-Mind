@@ -11,6 +11,7 @@ namespace UI
     {
         
         [SerializeField] private float fadeInWaitTime,fadeOutWaitTime,animationPlayTime,fullAlphaValue = 1;
+        [SerializeField] private bool hookController = true;
         private IItemHolder<IFadeAnimationPlayer> _itemHolder;
         private TMP_Text _tmp;
 
@@ -22,12 +23,12 @@ namespace UI
 
         private void OnEnable()
         {
-            _itemHolder.Add(this);
+            if (hookController) _itemHolder.Add(this);
         }
 
         private void OnDisable()
         {
-            _itemHolder.Add(this);
+            if (hookController) _itemHolder.Add(this);
         }
 
         public void PlayFadeInAnimation()

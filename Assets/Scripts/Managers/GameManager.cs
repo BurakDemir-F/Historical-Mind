@@ -10,7 +10,9 @@ namespace Managers
     public class GameManager : Patterns.Singleton<GameManager>
     {
         [SerializeField] private int waitStep = 10;
-
+        public bool IsPlayable { get; private set; } = false;
+        
+        
         private IEnumerator Start()
         {
             MazeGenerator.Instance.InitializeData();
@@ -24,8 +26,11 @@ namespace Managers
 
             var startCell = MazeGenerator.Instance.StartCell;
             var startVector = new Vector2Int(startCell.Position.x, startCell.Position.y);
-            StartCoroutine(MazeGenerator.Instance.CreateTestPlayer(startVector));
+            yield return StartCoroutine(MazeGenerator.Instance.CreateTestPlayer(startVector));
+            // LoadingScreen.Instance.PlayFadeOut();
             TestAudioPlayer.Instance.PlayMusic();
+            yield return new WaitForSeconds(2f);
+            LoadingScreen.Instance.PlayFadeOut();
             PlayFades();
         }
 
