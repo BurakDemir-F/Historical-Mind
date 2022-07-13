@@ -241,13 +241,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dedalusEyeData:
     isModifiable: 0
-    keys: 05000000060000000700000008000000090000000a000000
+    keys: 050000000600000007000000080000000a000000
     values:
     - {fileID: 11400000, guid: 7fa4c5ba50e50ff4d8465cffc8486fc4, type: 2}
     - {fileID: 11400000, guid: 06f389ec9537c564c9b287c7adbee0db, type: 2}
     - {fileID: 11400000, guid: 7fa4c5ba50e50ff4d8465cffc8486fc4, type: 2}
     - {fileID: 11400000, guid: 06f389ec9537c564c9b287c7adbee0db, type: 2}
-    - {fileID: 11400000, guid: 7fa4c5ba50e50ff4d8465cffc8486fc4, type: 2}
     - {fileID: 11400000, guid: 06f389ec9537c564c9b287c7adbee0db, type: 2}
   locator: {fileID: 4991599600577998764}
 --- !u!114 &4991599600577998764
