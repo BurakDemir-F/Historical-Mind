@@ -39,5 +39,10 @@ namespace Algorithms
         {
             return _neighborStatuses;
         }
+
+        public SerializableNeighborData ToSerializable()
+        {
+            return new SerializableNeighborData(this);
+        }
     }
 }

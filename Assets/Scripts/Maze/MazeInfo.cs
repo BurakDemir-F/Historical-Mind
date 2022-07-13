@@ -20,6 +20,15 @@ namespace Maze
         public static Cell goalCell;
         public static RoomBehaviour GoalRoom=> _rooms[new Vector2Int(goalCell.Position.x,goalCell.Position.y)];
 
+        public static void SetMazeInfo(Vector2Int mazeSize, Dictionary<Vector2Int, RoomBehaviour> rooms,
+            Dictionary<RoomBehaviour, RoomData> roomDatas, Vector2Int currentRoomPos)
+        {
+            size = mazeSize;
+            _rooms = rooms;
+            _roomDatas = roomDatas;
+            currentRoomPosition = currentRoomPos;
+        }
+        
         public static void InitMazeInfo(Vector2Int mazeSize)
         {
             size = mazeSize;
@@ -62,6 +71,11 @@ namespace Maze
         public static Dictionary<RoomBehaviour,RoomData> GetAllRoomData()
         {
             return _roomDatas;
+        }
+
+        public static List<RoomData> GetRoomDataList()
+        {
+            return _roomDatas.Values.ToList();
         }
 
         public static Dictionary<Vector2Int,RoomBehaviour> GetRooms()
@@ -166,5 +180,4 @@ namespace Maze
 
         public static float GetDistanceStartToGoal() => Vector2Int.Distance(startCell.Position, goalCell.Position);
     }
-    
 }

@@ -12,15 +12,35 @@ namespace EditorSpecific
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
+            
+            _current = target as GameManager;
+
             if (GUILayout.Button("Start Game"))
             {
-                _current = target as GameManager;
                 if (_current != null)
                 {
                     Debug.Log("it is working i think");
                     //_current.StartGame();
                 }
             }
+            
+            if (GUILayout.Button("Save"))
+            {
+                if (_current != null)
+                {
+                    _current.Save();
+                }
+            }
+            
+            if (GUILayout.Button("Load"))
+            {
+                if (_current != null)
+                {
+                    _current.Load();
+                }
+            }
         }
+        
+        
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Algorithms
 {
+    [System.Serializable]
     public class RoomData
     {
         public Cell Cell { get; private set; }
@@ -43,5 +44,25 @@ namespace Algorithms
             if(_creatures.Contains(creature)) _creatures.Remove(creature);
         }
 
+        public SerializableRoomData ToSerializable()
+        {
+            return new SerializableRoomData(this);
+        }
+        
+    }
+
+    public class SerializableRoomData
+    {
+        public SerializableCell Cell { get;  set; }
+        public bool IsBomb { get;  set; }
+
+        public List<MazeWorldCreatures> _creatures;
+
+        public SerializableRoomData(RoomData roomData)
+        {
+            _creatures = roomData.GetCreatures();
+            Cell = roomData.Cell.ToSerializable();
+            IsBomb = roomData.IsBomb;
+        }
     }
 }

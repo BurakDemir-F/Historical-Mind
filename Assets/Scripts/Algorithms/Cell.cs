@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Storing;
 using UnityEngine;
+using Utilities;
 
 namespace Algorithms
 {
+    [System.Serializable]
     public class Cell : IBackTrace
     {
         public Vector2Int Position { get; private set; }
@@ -52,6 +56,40 @@ namespace Algorithms
         public bool HasDownNeighbor() => GetNeighborStatuses()[1];
         public bool HasRightNeighbor() => GetNeighborStatuses()[2];
         public bool HasLeftNeighbor() => GetNeighborStatuses()[3];
+
+        public SerializableCell ToSerializable()
+        {
+            return new SerializableCell(_neighborData.ToSerializable(),Position.ToSerializable(),IsVisited,IsDangerous);
+        }
+    }
+
+    public class SerializableCell
+    {
+        public Vector2IntSerializable Position { get; set; }
+        public bool IsVisited { get; set; }
+        public bool IsDangerous { get; set; }
+        private SerializableNeighborData _neighborData;
+
+        public SerializableCell(SerializableNeighborData neighborData, Vector2IntSerializable position, bool isVisited, bool isDangerous)
+        {
+            _neighborData = neighborData;
+            Position = position;
+            IsVisited = isVisited;
+            IsDangerous = isDangerous;
+        }
+    }
+
+    public class SerializableNeighborData
+    {
+        public List<SerializableCell> cells;
+        public List<bool> neighborStatuses;
+
+        public SerializableNeighborData(NeighborData neighborData)
+        {
+            var neighborDataList = neighborData.GetNeighborCells();
+            cells = (from nd in neighborDataList select nd.ToSerializable()).ToList();
+            neighborStatuses = neighborData.GetNeighborStatuses();
+        }
     }
 
     public static class CellExtensions

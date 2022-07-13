@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Algorithms;
+using CodeMonkey.HealthSystemCM;
 using DG.Tweening;
 using MazeWorld;
 using Patterns;
@@ -134,11 +135,11 @@ namespace Maze
 
         }
 
-        public IEnumerator CreateTestPlayer(Vector2Int spawnRoom)
+        public IEnumerator CreateTestPlayer(Vector2Int spawnRoom, HealthSystem playerHealth = null)
         {
             yield return new WaitForSeconds(1f);
             
-            spawnRoom = new Vector2Int(StartCell.Position.x, StartCell.Position.y);
+            //spawnRoom = new Vector2Int(StartCell.Position.x, StartCell.Position.y);
             var isFound = MazeInfo.TryGetRoom(spawnRoom, out mazeRoom);
             if (isFound)
             {
@@ -149,6 +150,15 @@ namespace Maze
                 var playerCollider = player.GetComponentInChildren<Collider>();
                 mazeRoom.GetComponent<RoomEnterBehaviour>().OnTriggerEnter(playerCollider);
                 PlayerInfo.SetPlayer(playerCollider.gameObject);
+                
+                if (playerHealth != null)
+                {
+                    PlayerInfo.SetPlayerHealth(playerHealth);
+                    yield break;
+                }
+                
+                var playerHealthGetter = PlayerInfo.PlayerRoot.GetComponentInChildren<IGetHealthSystem>();
+                PlayerInfo.SetPlayerHealth(playerHealthGetter.GetHealthSystem());
             }
         }
 
