@@ -9,21 +9,20 @@ namespace Storing
     public class BinaryReaderWriter<T>
     {
         private string _path;
-        private FileStream _fileStream;
         private BinaryFormatter _binaryFormatter;
 
         public BinaryReaderWriter(string path)
         {
             _path = path;
-            _fileStream = new FileStream(path,FileMode.OpenOrCreate);
             _binaryFormatter = new BinaryFormatter();
         }
 
         public void Write(T serializableObject)
         {
+            var writeFileStream = new FileStream(_path,FileMode.Create);
             try
             {
-                _binaryFormatter.Serialize(_fileStream, serializableObject);
+                _binaryFormatter.Serialize(writeFileStream, serializableObject);
             }
             catch (SerializationException e)
             {
@@ -31,15 +30,16 @@ namespace Storing
             }
             finally
             {
-                _fileStream.Dispose();
+                writeFileStream.Close();
             }
         }
 
         public T Read()
         {
+            var readFileStream = new FileStream(_path, FileMode.Open);
             try
             {
-                return (T)_binaryFormatter.Deserialize(_fileStream);
+                return (T)_binaryFormatter.Deserialize(readFileStream);
             }
             catch (SerializationException e)
             {
@@ -47,7 +47,7 @@ namespace Storing
             }
             finally
             {
-                _fileStream.Dispose();
+                readFileStream.Close();
             }
 
             return default;

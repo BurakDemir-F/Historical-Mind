@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Storing;
 using UnityEngine;
 
 namespace Algorithms
@@ -7,11 +8,13 @@ namespace Algorithms
     {
         private readonly List<bool> _neighborStatuses;
         private List<Cell> _neighborCells;
+        private List<SerializableCell> _serializableNeighborCells;
 
         public NeighborData(List<bool> neighborStatuses)
         {
             _neighborStatuses = neighborStatuses;
             _neighborCells = new List<Cell>(4);
+            _serializableNeighborCells = new List<SerializableCell>(4);
         }
 
         public void SetNeighborStatus(int side)
@@ -23,6 +26,7 @@ namespace Algorithms
             }
 
             _neighborStatuses[side] = true;
+            
         }
 
         public List<Cell> GetNeighborCells()
@@ -33,6 +37,9 @@ namespace Algorithms
         public void AddNeighborCell(Cell neighbor)
         {
             _neighborCells.Add(neighbor);
+            _serializableNeighborCells.Add(new SerializableCell(ToSerializable(),
+                new Vector2IntSerializable(neighbor.Position.x, neighbor.Position.y), neighbor.IsVisited,
+                neighbor.IsDangerous));
         }
 
         public List<bool> GetNeighborStatuses()
@@ -42,7 +49,7 @@ namespace Algorithms
 
         public SerializableNeighborData ToSerializable()
         {
-            return new SerializableNeighborData(this);
+            return new SerializableNeighborData(this,_serializableNeighborCells);
         }
     }
 }

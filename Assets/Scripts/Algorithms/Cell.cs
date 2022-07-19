@@ -63,6 +63,7 @@ namespace Algorithms
         }
     }
 
+    [System.Serializable]
     public class SerializableCell
     {
         public Vector2IntSerializable Position { get; set; }
@@ -78,16 +79,16 @@ namespace Algorithms
             IsDangerous = isDangerous;
         }
     }
-
+    [System.Serializable]
     public class SerializableNeighborData
     {
         public List<SerializableCell> cells;
         public List<bool> neighborStatuses;
 
-        public SerializableNeighborData(NeighborData neighborData)
+        public SerializableNeighborData(NeighborData neighborData, List<SerializableCell> serializableCells)
         {
             var neighborDataList = neighborData.GetNeighborCells();
-            cells = (from nd in neighborDataList select nd.ToSerializable()).ToList();
+            cells = /*(from nd in neighborDataList select nd.ToSerializable()).ToList()*/ serializableCells;
             neighborStatuses = neighborData.GetNeighborStatuses();
         }
     }

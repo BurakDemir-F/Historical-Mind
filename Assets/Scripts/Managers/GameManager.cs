@@ -74,19 +74,25 @@ namespace Managers
 
         public void Save()
         {
+            var startTime = Time.realtimeSinceStartup;
             var storingClass = new StoringClass(MazeInfo.GetRoomDataList(),
                 MazeInfo.currentRoomPosition.ToSerializable(),
                 PlayerInfo.PlayerHealth);
             SaveLoad.Save(storingClass);
+            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
+            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
 
         public void Load()
         {
+            var startTime = Time.realtimeSinceStartup;
             var load = SaveLoad.Load();
             print("storing class");
-            print("health: " + load.GetHealthSystem().GetHealth());
-            print ("current room" + load.GetCurrentRoomPosition());
+            //print("health: " + load.GetHealthSystem().GetHealth());
+            print ("current room" + load.GetCurrentRoomPosition().X);
             print($"Room data list count: {load.GetRoomDataList()}");
+            print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
+            print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
         }
     }
 }

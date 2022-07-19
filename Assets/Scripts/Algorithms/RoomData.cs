@@ -51,6 +51,7 @@ namespace Algorithms
         
     }
 
+    [System.Serializable]
     public class SerializableRoomData
     {
         public SerializableCell Cell { get;  set; }
