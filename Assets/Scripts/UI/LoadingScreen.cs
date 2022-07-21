@@ -10,7 +10,7 @@ namespace UI
     {
         private IFadeAnimationPlayer[] _animationPlayers;
 
-        private void OnValidate()
+        private void Start()
         {
             _animationPlayers = GetComponentsInChildren<IFadeAnimationPlayer>();
         }

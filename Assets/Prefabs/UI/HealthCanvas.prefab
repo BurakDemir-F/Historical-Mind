@@ -94,7 +94,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8279617873488775628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -629,6 +629,7 @@ MonoBehaviour:
   fadeInWaitTime: 3
   fadeOutWaitTime: 3
   animationPlayTime: 5
+  hookController: 1
 --- !u!1 &7342128837225646238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1658283231683653378, guid: a25d55f89d6b0ac48a3ba45b76ef0c9c,
@@ -650,6 +651,7 @@ MonoBehaviour:
   fadeInWaitTime: 3
   fadeOutWaitTime: 3
   animationPlayTime: 5
+  hookController: 1
 --- !u!1001 &8279617874100761540
 PrefabInstance:
   m_ObjectHideFlags: 0

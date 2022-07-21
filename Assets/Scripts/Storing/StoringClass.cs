@@ -11,9 +11,9 @@ namespace Storing
     {
         public List<SerializableRoomData> roomDataList;
         public Vector2IntSerializable currentRoom;
-        public HealthSystem playerHealth;
+        public SerializableHealthSystem playerHealth;
 
-        public StoringClass(List<RoomData> roomDataList, Vector2IntSerializable currentRoom, HealthSystem playerHealth)
+        public StoringClass(List<RoomData> roomDataList, Vector2IntSerializable currentRoom, SerializableHealthSystem playerHealth)
         {
             this.roomDataList = (from roomData in roomDataList select roomData.ToSerializable()).ToList() ;
             this.currentRoom = currentRoom;
@@ -30,7 +30,7 @@ namespace Storing
             return currentRoom;
         }
 
-        public HealthSystem GetHealthSystem()
+        public SerializableHealthSystem GetHealthSystem()
         {
             return playerHealth;
         }

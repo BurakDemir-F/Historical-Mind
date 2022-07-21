@@ -1,56 +1,42 @@
 ﻿
+using System;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
+using System.Text;
 using UnityEngine;
+using FileMode = System.IO.FileMode;
 
 namespace Storing
 {
-    public class BinaryReaderWriter<T>
+    public class BinaryReaderWriter
     {
         private string _path;
-        private BinaryFormatter _binaryFormatter;
 
         public BinaryReaderWriter(string path)
         {
             _path = path;
-            _binaryFormatter = new BinaryFormatter();
         }
 
-        public void Write(T serializableObject)
+        public void Write(string text)
         {
-            var writeFileStream = new FileStream(_path,FileMode.Create);
-            try
-            {
-                _binaryFormatter.Serialize(writeFileStream, serializableObject);
-            }
-            catch (SerializationException e)
-            {
-                Debug.Log("Error on serialization" + e);
-            }
-            finally
-            {
-                writeFileStream.Close();
-            }
+            File.WriteAllTextAsync(_path,text,Encoding.UTF8);
         }
 
-        public T Read()
+        public string Read()
         {
-            var readFileStream = new FileStream(_path, FileMode.Open);
-            try
-            {
-                return (T)_binaryFormatter.Deserialize(readFileStream);
-            }
-            catch (SerializationException e)
-            {
-                Debug.Log("Error on serialization" + e);
-            }
-            finally
-            {
-                readFileStream.Close();
-            }
+            var text =File.ReadAllText(_path,Encoding.UTF8); 
+            return text;
+        }
+        
 
-            return default;
+        public static byte[] ConvertToByteArray(string str, Encoding encoding)
+        {
+            return encoding.GetBytes(str);
+        }
+
+        public static string BinaryToString(Byte[] data)
+        {
+            return string.Join(" ", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
      }
 }

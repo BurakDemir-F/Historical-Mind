@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using General;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace UI
         private IItemHolder<IFadeAnimationPlayer> _itemHolder;
         private Image _image;
 
-        private void OnValidate()
+        private void Start()
         {
             _itemHolder = gameObject.GetComponentFromAllTransform<IItemHolder<IFadeAnimationPlayer>>(null);
             _image = GetComponent<Image>();

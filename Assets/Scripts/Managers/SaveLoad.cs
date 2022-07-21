@@ -1,4 +1,5 @@
 ﻿using Storing;
+using UnityEngine;
 using Utilities;
 
 namespace Managers
@@ -6,17 +7,19 @@ namespace Managers
     public static class SaveLoad
     {
         private static string _fileName = "BurakSaveFile.dat";
-        private static readonly BinaryReaderWriter<StoringClass> _binaryReaderWriter =
-            new BinaryReaderWriter<StoringClass>(_fileName.LocateAtPersistentDataPath());
+        private static readonly BinaryReaderWriter _binaryReaderWriter =
+            new BinaryReaderWriter(_fileName.LocateAtPersistentDataPath());
 
         public static void Save(StoringClass storingClass)
         {
-            _binaryReaderWriter.Write(storingClass);
+            _binaryReaderWriter.Write(JsonOperator<StoringClass>.ToJson(storingClass));
         }
 
         public static StoringClass Load()
         {
-            return _binaryReaderWriter.Read();
+            var jsonString = _binaryReaderWriter.Read();
+            Debug.Log("json string");
+            return JsonOperator<StoringClass>.FromJson(jsonString);
         }
     }
 }

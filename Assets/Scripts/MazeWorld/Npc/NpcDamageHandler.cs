@@ -7,7 +7,7 @@ namespace MazeWorld.Npc
     {
         [SerializeField] private NpcMotionBehaviour motionBehaviour;
 
-        private void OnValidate()
+        private void Start()
         {
             motionBehaviour = GetComponent<NpcMotionBehaviour>();
         }

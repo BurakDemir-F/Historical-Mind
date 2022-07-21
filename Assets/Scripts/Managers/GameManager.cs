@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CodeMonkey.HealthSystemCM;
 using Maze;
 using MazeWorld;
 using MazeWorld.Dedalus;
@@ -77,7 +78,8 @@ namespace Managers
             var startTime = Time.realtimeSinceStartup;
             var storingClass = new StoringClass(MazeInfo.GetRoomDataList(),
                 MazeInfo.currentRoomPosition.ToSerializable(),
-                PlayerInfo.PlayerHealth);
+                new SerializableHealthSystem(PlayerInfo.PlayerHealth.GetHealthMax(),
+                    PlayerInfo.PlayerHealth.GetHealth()));
             SaveLoad.Save(storingClass);
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");
@@ -89,7 +91,7 @@ namespace Managers
             var load = SaveLoad.Load();
             print("storing class");
             //print("health: " + load.GetHealthSystem().GetHealth());
-            print ("current room" + load.GetCurrentRoomPosition().X);
+            print ("current room" + load.GetCurrentRoomPosition().x);
             print($"Room data list count: {load.GetRoomDataList()}");
             print($"{(Time.realtimeSinceStartup - startTime) * 1000 } ms - generate backtracking");
             print($"total memory{GC.GetTotalMemory(false) / Mathf.Pow(10,6)}");

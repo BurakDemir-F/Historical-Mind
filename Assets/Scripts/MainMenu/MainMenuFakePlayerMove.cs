@@ -12,14 +12,17 @@ namespace MainMenu
         [SerializeField] private bool isOnTarget1 = true;
         [SerializeField] private float movementTime = 0.5f;
         [SerializeField] private NpcRoomOperationsBehaviour npcRoomBehaviour;
-
+        private Sequence _moveSequence;
+        
         private void Start()
         {
             StartCoroutine(GoToTargetCor());
+            
         }
 
         private void OnDestroy()
         {
+            _moveSequence.Kill();
             StopCoroutine(GoToTargetCor());
         }
 
@@ -43,12 +46,16 @@ namespace MainMenu
         {
             if (isOnTarget1)
             {
-                transform.DOMove(target2.position, movementTime);
+                _moveSequence = DOTween.Sequence();
+                _moveSequence.Append(transform.DOMove(target2.position, movementTime));
+                _moveSequence.OnComplete(() => _moveSequence.Kill());
                 isOnTarget1 = false;
             }
             else
             {
-                transform.DOMove(target1.position, movementTime);
+                _moveSequence = DOTween.Sequence();
+                _moveSequence.Append(transform.DOMove(target1.position, movementTime));
+                _moveSequence.OnComplete(() => _moveSequence.Kill());
                 isOnTarget1 = true;
             }
         

@@ -9,7 +9,7 @@ namespace Storing
             return JsonUtility.ToJson(data);
         }
 
-        public static T Load(string json)
+        public static T FromJson(string json)
         {
             return JsonUtility.FromJson<T>(json);
         }

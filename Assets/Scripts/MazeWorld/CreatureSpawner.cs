@@ -7,7 +7,6 @@ using Maze;
 using MazeWorld.Npc;
 using Patterns;
 using ScriptableObjects;
-using Unity.Mathematics;
 using UnityEngine;
 using Utilities;
 using Random = UnityEngine.Random;

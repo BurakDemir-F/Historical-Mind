@@ -15,7 +15,7 @@ namespace UI
         private IItemHolder<IFadeAnimationPlayer> _itemHolder;
         private TMP_Text _tmp;
 
-        private void OnValidate()
+        private void Awake()
         {
             _itemHolder = gameObject.GetComponentFromAllTransform<IItemHolder<IFadeAnimationPlayer>>(null);
             _tmp = GetComponent<TMP_Text>();

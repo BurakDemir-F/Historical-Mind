@@ -3,18 +3,16 @@
 namespace Storing
 {
     [System.Serializable]
-    public struct Vector2IntSerializable
+    public class Vector2IntSerializable
     {
-        private int _x;
-        private int _y;
-
-        public int X => _x;
-        public int Y => _y;
+        public int x;
+        public int y;
+        
         
         public Vector2IntSerializable(int x, int y)
         {
-            _x = x;
-            _y = y;
+            this.x = x;
+            this.y = y;
         }
     }
 }
